@@ -1,6 +1,7 @@
 from django.db import models
 
 # Create your models here.
+
 class Customer(models.Model):
 	name = models.CharField(max_length=200, null=True)
 	phone = models.CharField(max_length=200, null=True)
@@ -16,25 +17,12 @@ class Customer(models.Model):
 		return str(order_count)
 	
 
-class Pet(models.Model):
-    ANIMAL_CHOICES = [
-        ('Perro', 'Perro'),
-        ('Gato', 'Gato'),
-        ('Ave', 'Ave'),
-        ('Otro','Otro'),
-    ]
-    owner = models.ForeignKey(Customer, on_delete=models.CASCADE)
-    name = models.CharField(max_length=200, null=True)
-    age = models.IntegerField()
-    type_animal = models.CharField(max_length=15, choices=ANIMAL_CHOICES, default='Perro')
-    desc=models.CharField(max_length=255, blank=True, default="")
-
 
 class Product(models.Model):
 
 	CATEGORY = (
-			('Service', 'Service'),
-			('Product', 'Product'),
+			('Indoor', 'Indoor'),
+			('Out Door', 'Out Door'),
 			) 
 
 	name = models.CharField(max_length=200, null=True)
@@ -62,3 +50,5 @@ class Order(models.Model):
 
 	def __str__(self):
 		return str(self.product)
+
+
