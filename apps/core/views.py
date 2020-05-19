@@ -5,3 +5,7 @@ from django.shortcuts import redirect
 def landingPage(request):
 
     return render(request, 'core/index.html',{})
+
+def base(request):
+
+    return render(request, 'base/base.html',{})
