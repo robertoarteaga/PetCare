@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from .models import *
-from . forms import OrderForm
+from . forms import *
 from .filters import OrderFilter
 
 #-------------------(DETAIL/LIST VIEWS) -------------------
@@ -27,6 +27,16 @@ def products(request):
 	products = Product.objects.all()
 	context = {'products':products}
 	return render(request, 'accounts/products.html', context)
+
+def add_product(request):
+	if request.method == 'POST':
+		form = ProductForm(request.POST, request.FILES)
+		if form.is_valid():
+			form.save()
+			return redirect('add_product')
+		return render(request, 'accounts/add_product.html', {'form':form})
+	form = ProductForm()
+	return render(request, 'accounts/add_product.html', {'form':form})
 
 def customer(request, pk):
 	customer = Customer.objects.get(id=pk)

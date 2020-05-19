@@ -1,4 +1,5 @@
 {% extends 'accounts/main_template.html' %}
+{% load static %}
 {% block content %}
 
 <br>
@@ -12,12 +13,14 @@
 			<table class="table">
 				<tr>
 					<th>Product</th>
+					<th>Imagen</th>
 					<th>Category</th>
 					<th>Price</th>
 				</tr>
 				{% for product in products %}
 					<tr>
 						<td>{{product.name}}</td>
+						<td><img src="{{ product.img_product.url}}" alt=""></td>
 						<td>{{product.category}}</td>
 						<td>${{product.price}}</td>
 					</tr>

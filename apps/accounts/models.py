@@ -21,8 +21,10 @@ class Customer(models.Model):
 class Product(models.Model):
 
 	CATEGORY = (
-			('Indoor', 'Indoor'),
-			('Out Door', 'Out Door'),
+			('Servicio', 'Servicio'),
+			('Comida', 'Comida'),
+			('Accesorio', 'Accesorio'),
+			('Limpieza', 'Limpieza'),
 			) 
 
 	name = models.CharField(max_length=200, null=True)
@@ -30,7 +32,7 @@ class Product(models.Model):
 	category = models.CharField(max_length=200, null=True, choices=CATEGORY)
 	description = models.TextField()
 	date_created = models.DateTimeField(auto_now_add=True, null=True, blank=True)
-
+	img_product = models.ImageField(upload_to='productos',  null=True, blank=True)
 	def __str__(self):
 		return self.name
 

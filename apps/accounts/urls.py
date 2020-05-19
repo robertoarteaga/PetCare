@@ -4,6 +4,7 @@ from . import views
 urlpatterns = [
     path('', views.dashBoard, name="dashboard"),
     path('products/', views.products, name="products"),
+    path('add_product/', views.add_product, name="add_product"),
     path('customer/<str:pk>/', views.customer, name="customer"),
 
     #------------ (CREATE URLS) ------------
