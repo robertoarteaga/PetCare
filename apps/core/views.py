@@ -9,3 +9,7 @@ def landingPage(request):
 def base(request):
 
     return render(request, 'base/base.html',{})
+
+def shop(request):
+
+    return render(request, 'core/shop.html',{})
