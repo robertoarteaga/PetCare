@@ -40,28 +40,41 @@
         <div class="container-header__menu d-flex flex-row d-none">
             <div class="row col-12 p-3">
                 <div class="col-2 d-flex align-items-center justify-content-center">
-                    <i class="fas fa-tachometer-alt"></i>&nbsp Dashboard
+                    <a href="{% url 'dashboard' %}" class="btn">
+                        <i class="fas fa-tachometer-alt"></i>&nbsp Dashboard
+                    </a>
                 </div>
                 <div class="col-2 d-flex align-items-center justify-content-center">
-                    <i class="fas fa-chart-pie"></i>&nbsp Gráficos
+                    <a href="{% url 'graphics' %}" class="btn">
+                        <i class="fas fa-chart-pie"></i>&nbsp Gráficos
+                    </a>
                 </div>
                 <div class="col-2 d-flex align-items-center justify-content-center">
-                    <i class="fas fa-chart-pie"></i>&nbsp Productos
+                    <a href="{% url 'products' %}" class="btn">
+                        <i class="fas fa-chart-pie"></i>&nbsp Productos
+                    </a>
                 </div>
                 <div class="col-2 d-flex align-items-center justify-content-center">
-                    <i class="fas fa-chart-pie"></i>&nbsp Ventas
+                    <a href="{% url 'sales' %}" class="btn">
+                        <i class="fas fa-chart-pie"></i>&nbsp Ventas
+                    </a>
                 </div>
                 <div class="col-2 d-flex align-items-center justify-content-center">
-                    <i class="fas fa-chart-pie"></i>&nbsp Clientes
+                    <a href="{% url 'clients' %}" class="btn">
+                        <i class="fas fa-chart-pie"></i>&nbsp Clientes
+                    </a>
                 </div>
                 <div class="col-2 d-flex align-items-center justify-content-center">
-                    <i class="fas fa-chart-pie"></i>&nbsp Configuración
+                    <a href="{% url 'config' %}" class="btn">
+                        <i class="fas fa-chart-pie"></i>&nbsp Configuración
+                    </a>
                 </div>
             </div>
          </div>
     </header>
     <div class="container-body d-flex w-100 position-absolute p-4 overflow-y">
-aaa
+        {% block content %}
+        {% endblock %}
     </div>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
