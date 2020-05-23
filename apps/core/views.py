@@ -13,6 +13,9 @@ def base(request):
 
     return render(request, 'base/base.html', {})
 
+def shop(request):
+    products = Product.objects.all()
+    return render(request, 'core/shop.html', {'products':products})
 
 def dashboard(request):
     return render(request, 'core/dashboard.html', {})
