@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.highcharts.com/stock/highstock.js"></script>
+    <script src="https://code.highcharts.com/stock/modules/data.js"></script>
+    <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/stock/modules/export-data.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="container" style="height: 400px; min-width: 310px"></div>
+
+    <script defer>
+        // Obtener el csrf_token
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        // Petición ajax
+        var data = []
+        var csrftoken = getCookie('csrftoken');
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+
+                data = JSON.parse(this.responseText)
+                data.forEach(e => {
+                    e[0] = new Date(e[0]).getTime()
+
+                })
+                console.log(data);
+                Highcharts.stockChart('container', {
+                    rangeSelector: {
+                        selected: 5
+                    },
+
+                    title: {
+                        text: 'Ventas enero - mayo'
+                    },
+
+                    series: [{
+                        name: 'Ventas',
+                        data: data,
+                        tooltip: {
+                            valueDecimals: 2
+                        }
+                    }]
+                });
+            }
+        };
+        xhttp.open("POST", "{% url 'get_sales' %}", true);
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.setRequestHeader("X-CSRFToken", csrftoken);
+        xhttp.send();
+
+        var chart1; // globally available
+
+
+    </script>
+</body>
+
+</html>

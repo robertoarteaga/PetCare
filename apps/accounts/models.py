@@ -16,6 +16,18 @@ class Customer(models.Model):
 		order_count = self.order_set.all().count()
 		return str(order_count)
 	
+class Pet(models.Model):
+    ANIMAL_CHOICES = [
+        ('Perro', 'Perro'),
+        ('Gato', 'Gato'),
+        ('Ave', 'Ave'),
+        ('Otro','Otro'),
+    ]
+    owner = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    name = models.CharField(max_length=200, null=True)
+    age = models.IntegerField()
+    type_animal = models.CharField(max_length=15, choices=ANIMAL_CHOICES, default='Perro')
+    desc=models.CharField(max_length=255, blank=True, default="")
 
 
 class Product(models.Model):
