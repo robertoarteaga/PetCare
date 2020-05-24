@@ -1,16 +1,22 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.http import JsonResponse
+from django.core import serializers
+# from django.db.models import Count
+from django.db import connection
 from django.shortcuts import redirect
 from django.contrib.auth import views as admin_views
 from apps.accounts.models import Product
 from apps.accounts.forms import *
-def landingPage(request):
 
+
+def landingPage(request):
+    """ Vista que renderiza el landing page """
     return render(request, 'core/index.html', {})
 
 
 def base(request):
-
+    """ Vista que muestra el html base par pruebas """
     return render(request, 'base/base.html', {})
 
 def shop(request):
@@ -24,6 +30,15 @@ def dashboard(request):
 def graphics(request):
     return render(request, 'core/graphics.html', {})
 
+def get_sales(request):
+    """ Vista que regresa un json con las ventas del año """
+    # sales = Order.objects.values('date_created').annotate(cantidad=Count('date_created'))
+    # sales = Order.objects.values('date_created').annotate(cantidad=Count('date_created'))
+    with connection.cursor() as cursor:
+        cursor.execute("SELECT date_created, Count(*) as cantidad FROM accounts_order GROUP BY date_created;")
+        rows = cursor.fetchall()
+    return JsonResponse(rows, safe=False)
+    # return HttpResponse(rows)
 
 def products(request):
     products = Product.objects.all()
