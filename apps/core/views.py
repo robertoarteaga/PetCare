@@ -35,7 +35,7 @@ def get_sales(request):
     # sales = Order.objects.values('date_created').annotate(cantidad=Count('date_created'))
     # sales = Order.objects.values('date_created').annotate(cantidad=Count('date_created'))
     with connection.cursor() as cursor:
-        cursor.execute("SELECT date_created, Count(*) as cantidad FROM accounts_order GROUP BY date_created;")
+        cursor.sexecute("SELECT date_created, Count(*) as cantidad FROM accounts_order GROUP BY date_created;")
         rows = cursor.fetchall()
     return JsonResponse(rows, safe=False)
     # return HttpResponse(rows)
@@ -55,7 +55,8 @@ def add_product(request):
 	return render(request, 'core/add_product.html', {'form':form})
 
 def sales(request):
-    return render(request, 'core/sales.html',{})
+    sales = Order.objects.order_by('date_created')
+    return render(request, 'core/sales.html',{'sales':sales})
 
 def clients(request):
     return render(request, 'core/clients.html',{})
