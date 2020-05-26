@@ -35,7 +35,7 @@ def get_sales(request):
     # sales = Order.objects.values('date_created').annotate(cantidad=Count('date_created'))
     # sales = Order.objects.values('date_created').annotate(cantidad=Count('date_created'))
     with connection.cursor() as cursor:
-        cursor.sexecute("SELECT date_created, Count(*) as cantidad FROM accounts_order GROUP BY date_created;")
+        cursor.execute("SELECT date_created, Count(*) as cantidad FROM accounts_order GROUP BY date_created;")
         rows = cursor.fetchall()
     return JsonResponse(rows, safe=False)
     # return HttpResponse(rows)
