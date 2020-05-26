@@ -18,6 +18,9 @@ from django.urls import path
 from django.urls import include
 from apps.core.views import landingPage
 from django.conf import settings
+
+admin.site.site_header = 'PetCare'
+admin.site.site_title = 'PetCare'
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('apps.core.urls')),
