@@ -620,7 +620,7 @@ td ul.errorlist + input, td ul.errorlist + select, td ul.errorlist + textarea {
 /* BREADCRUMBS */
 
 div.breadcrumbs {
-    background: #79aec8;
+    
     padding: 10px 40px;
     border: none;
     font-size: 14px;
@@ -629,11 +629,11 @@ div.breadcrumbs {
 }
 
 div.breadcrumbs a {
-    color: #fff;
+    color: black;
 }
 
 div.breadcrumbs a:focus, div.breadcrumbs a:hover {
-    color: #c4dce8;
+    color:grey;
 }
 
 /* ACTION ICONS */

@@ -1,15 +1,25 @@
 {% extends 'base/base.html' %}
 {% load static %}
 
-{% block metascripts %}
+{% block metascripts %} 
+    <link rel="stylesheet" href="{% static 'css/core.css' %}">
+    <link rel="stylesheet" href="{% static 'admin/css/base.css' %}">
     <script src="https://code.highcharts.com/stock/highstock.js"></script>
     <script src="https://code.highcharts.com/stock/modules/data.js"></script>
     <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/stock/modules/export-data.js"></script>
-{% endblock %}
-{% block content %}
-<div id="container" style="height: 400px; min-width: 750px"></div>
-
+    {% endblock %}
+    {% block content %}
+    <div class="container-fluid d-flex flex-column">
+        
+        <div class="breadcrumbs">
+            <a href="/admin/">Inicio</a>
+            › Estadísticas
+        </div>
+        <div class="w-100"></div>
+        <div id="container" style="height: 400px; min-width: 750px; width: 100%;"></div>
+        
+    </div>
     <script defer>
         // Obtener el csrf_token
         function getCookie(name) {

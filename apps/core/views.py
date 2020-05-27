@@ -59,6 +59,7 @@ def sales(request):
     return render(request, 'core/sales.html',{'sales':sales})
 
 def clients(request):
+    Customer.objects.all()
     return render(request, 'core/clients.html',{})
 
 def config(request):
