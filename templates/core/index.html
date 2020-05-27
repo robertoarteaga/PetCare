@@ -21,7 +21,7 @@
 		<link rel="stylesheet" href="{% static 'css/app.css' %}">
 	</head>
 	<!-- Preloader -->
-		<div id="ip-container" class="ip-container">
+		<!-- <div id="ip-container" class="ip-container">
 			<header class="ip-header">
 				<div id="loaderimg" class="loader">
 					<div class="image">
@@ -40,7 +40,7 @@
 					</svg>
 				</div>
 			</header>
-		</div>
+		</div> -->
 
 		
 	<body class="footer-dark">
@@ -53,13 +53,16 @@
 				<nav>
 					<ul class="nav-primary">
 						<li>
-							<a href="#">INICIO</a>
+							<a href="{% url 'index' %}">INICIO</a>
 						</li>
 						<li>
-							<a href="#">CATEGORÍAS</a>
+							<a href="#cate">CATEGORÍAS</a>
 						</li>
 						<li>
-							<a href="#">NOSOTROS</a>
+							<a href="#info">NOSOTROS</a>
+						</li>
+						<li>
+							<a href="{% url 'shop' %}">Tienda</a>
 						</li>
 						<li>
 							<a class="button button-secondary" href="#">
@@ -273,7 +276,7 @@
 
 			</section>
 			<!-- Content Row -->
-			<section class="content-row">
+			<section class="content-row" id="cate">
 				<div class="container">
 					<div class="column-row align-center-bottom text-align-center">
 						
@@ -363,7 +366,7 @@
 			</section>
     </section>
     
-    <section class="content-info">
+    <section class="content-info" id="">
       <div class="container">
         <header class="content-header">
           <h2>¿Ya nos conoces?</h2>
@@ -402,9 +405,6 @@
 										<li>
 											<a href="#"><i class="fab fa-github"></i>Github</a>
 										</li>
-										<li>
-											<a href="#"><i class="fab fa-xing"></i>Xing</a>
-										</li>
 									</ul>
 								</div>
 								<div class="column-25">
@@ -421,9 +421,6 @@
 										<li>
 											<a href="#"><i class="fab fa-github"></i>Github</a>
 										</li>
-										<li>
-											<a href="#"><i class="fab fa-xing"></i>Xing</a>
-										</li>
 									</ul>
 								</div>
 								<div class="column-25">
@@ -439,9 +436,6 @@
 										</li>
 										<li>
 											<a href="#"><i class="fab fa-github"></i>Github</a>
-										</li>
-										<li>
-											<a href="#"><i class="fab fa-xing"></i>Xing</a>
 										</li>
 									</ul>
 								</div>
