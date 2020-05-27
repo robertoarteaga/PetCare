@@ -507,8 +507,8 @@ input[type=button][disabled].default {
     font-weight: 400;
     font-size: 13px;
     text-align: left;
-    background: #79aec8;
-    color: #fff;
+    background-color: rgb(225, 225, 225);
+    color: black !important;
 }
 
 .module caption,
@@ -517,7 +517,9 @@ input[type=button][disabled].default {
     letter-spacing: 0.5px;
     text-transform: uppercase;
 }
-
+caption a{
+    color:black !important;
+}
 .module table {
     border-collapse: collapse;
 }
