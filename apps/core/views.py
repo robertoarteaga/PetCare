@@ -55,7 +55,8 @@ def add_product(request):
 	return render(request, 'core/add_product.html', {'form':form})
 
 def sales(request):
-    return render(request, 'core/sales.html',{})
+    sales = Order.objects.order_by('date_created')
+    return render(request, 'core/sales.html',{'sales':sales})
 
 def clients(request):
     return render(request, 'core/clients.html',{})

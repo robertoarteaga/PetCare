@@ -1,1 +1,20 @@
 {% extends 'base/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<table class="table">
+    <tr>
+        <th>Producto</th>
+    <th>Cliente</th>
+    <th>Fecha</th>
+    </tr>
+    {% for sale in sales %}
+    <tr>
+        <td>{{ sale.product }}</td>
+        <td>{{ sale.customer }}</td>
+        <td>{{ sale.date_created|date:"D d M Y" }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

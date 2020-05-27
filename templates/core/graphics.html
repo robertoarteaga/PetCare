@@ -1,18 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base/base.html' %}
+{% load static %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% block metascripts %}
     <script src="https://code.highcharts.com/stock/highstock.js"></script>
     <script src="https://code.highcharts.com/stock/modules/data.js"></script>
     <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/stock/modules/export-data.js"></script>
-    <title>Document</title>
-</head>
-
-<body>
-    <div id="container" style="height: 400px; min-width: 310px"></div>
+{% endblock %}
+{% block content %}
+<div id="container" style="height: 400px; min-width: 750px"></div>
 
     <script defer>
         // Obtener el csrf_token
@@ -72,6 +68,4 @@
 
 
     </script>
-</body>
-
-</html>
+{% endblock %}
