@@ -41,6 +41,9 @@ class Pet(models.Model):
         verbose_name = "Mascota"
         verbose_name_plural = "Mascotas"
 
+class ServicesManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(category="Servicio")
 
 class Product(models.Model):
 
@@ -59,7 +62,9 @@ class Product(models.Model):
         auto_now_add=True, null=True, blank=True)
     img_product = models.ImageField(
         upload_to='productos',  null=True, blank=True)
-
+    
+    objects = models.Manager()
+    services = ServicesManager()
     def __str__(self):
         return self.name
 
@@ -87,3 +92,4 @@ class Order(models.Model):
     class Meta:
         verbose_name = "Venta"
         verbose_name_plural = "Ventas"
+
