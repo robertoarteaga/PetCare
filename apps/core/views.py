@@ -28,7 +28,12 @@ def dashboard(request):
 
 
 def graphics(request):
-    return render(request, 'core/graphics.html', {})
+    context = {
+        'is_popup':False, 
+        'has_permission':True,
+        'site_url':True
+        }
+    return render(request, 'core/graphics.html', context)
 
 def get_sales(request):
     """ Vista que regresa un json con las ventas del año """
@@ -59,6 +64,7 @@ def sales(request):
     return render(request, 'core/sales.html',{'sales':sales})
 
 def clients(request):
+    Customer.objects.all()
     return render(request, 'core/clients.html',{})
 
 def config(request):
