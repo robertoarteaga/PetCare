@@ -244,7 +244,7 @@ body {
   height: 100%;
   border-radius: 10px;
 }
-.content-promo img{
+.content-promo img {
   border-radius: 10px;
 }
 .footer-blue {
@@ -270,7 +270,7 @@ body {
   position: relative;
   display: flex;
   width: 75%;
-  height: 430px;
+  min-height: 430px;
   flex-flow: column;
   border-radius: 10px;
   border: 1.3px solid #e6dddd;
@@ -310,3 +310,9 @@ body {
 /* .i{
 margin-right: 5rem !important;
 } */
+
+#footer .footer-secondary:not(:first-child) {
+  padding-top: 30px;
+  margin-top: 30px;
+  border-top: 2px solid #3a4659;
+}
