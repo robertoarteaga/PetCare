@@ -26,8 +26,8 @@
             </a>
         </div>
         <div class="col-md-2 d-flex align-items-center justify-content-center">
-        <a href="/admin" class="btn">
-            <i class="fas fa-chart-pie"></i>&nbsp Admin
+        <a href="/admin/auth/user/ {{ request.user.id|safe }} /change/" class="btn">
+            <i class="fas fa-chart-pie"></i>&nbsp Perfil
         </a>
     </div>
     </div>
