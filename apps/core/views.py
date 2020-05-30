@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.http import JsonResponse
+from django.http import Http404
 from django.core import serializers
 # from django.db.models import Count
 from django.db import connection
@@ -19,9 +20,13 @@ def base(request):
     """ Vista que muestra el html base par pruebas """
     return render(request, 'base/base.html', {})
 
-def buy(request):
+def buy(request, id_product):
     """ Vista que muestra el html base par pruebas """
-    return render(request, 'core/buy.html', {})
+    try:
+        product = Product.products.get(pk = id_product)
+        return render(request, 'core/buy.html', {'product':product})
+    except Product.DoesNotExist:
+        raise Http404("Producto inexistente")
 
 def shop(request):
     products = Product.products.all()

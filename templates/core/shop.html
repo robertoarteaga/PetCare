@@ -88,7 +88,12 @@
                                 <span>{{ product.name }}</span>
                                 <p>{{ product.description }}</p>
                                 <p class="text-primary text-bold">${{ product.price }} MXN</p>
-                                <p><button class="btn btn-primary"><i class="fas fa-shopping-cart mr-1"></i>Comprar</button></p>
+                                <p>
+                                    <a href="{% url 'buy' product.id %}" >
+                                        <button class="btn btn-primary"><i class="fas fa-shopping-cart mr-1"></i>Comprar</button>
+                                    </a>
+                                </p>
+                                
                             </div>
                         </div>
                     </div>
