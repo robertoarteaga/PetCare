@@ -42,8 +42,15 @@ class Pet(models.Model):
         verbose_name_plural = "Mascotas"
 
 class ServicesManager(models.Manager):
+    """ Just get the products in the category of Services """
     def get_queryset(self):
         return super().get_queryset().filter(category="Servicio")
+
+class ProductsManager(models.Manager):
+    """ Get all the products excluding the services """
+    def get_queryset(self):
+        return super().get_queryset().exclude(category="Servicio")
+
 
 class Product(models.Model):
 
@@ -65,6 +72,7 @@ class Product(models.Model):
     
     objects = models.Manager()
     services = ServicesManager()
+    products = ProductsManager()
     def __str__(self):
         return self.name
 

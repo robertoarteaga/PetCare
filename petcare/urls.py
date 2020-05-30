@@ -24,6 +24,7 @@ admin.site.site_title = 'PetCare'
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('apps.core.urls')),
+    path('shop/', include('apps.shop.urls')),
     path('accounts/', include('apps.accounts.urls')),
 ]
 

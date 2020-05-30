@@ -78,7 +78,11 @@
                     <div class="col-12 col-xs-12 col-sm-6 col-lg-4 d-flex flex-column align-items-center justify-content-center mb-5">
                         <div class="container-card">
                             <div class="head-card">
+                                {% if product.img_product %}
                                 <img src="{{ product.img_product.url}}" alt="">
+                                {% else %}
+                                <img src="" alt="">
+                                {% endif %}
                             </div>
                             <div class="body-card">
                                 <span>{{ product.name }}</span>
