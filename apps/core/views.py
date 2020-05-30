@@ -19,6 +19,10 @@ def base(request):
     """ Vista que muestra el html base par pruebas """
     return render(request, 'base/base.html', {})
 
+def buy(request):
+    """ Vista que muestra el html base par pruebas """
+    return render(request, 'core/buy.html', {})
+
 def shop(request):
     products = Product.objects.all()
     return render(request, 'core/shop.html', {'products':products})
