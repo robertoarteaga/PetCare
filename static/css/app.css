@@ -1,16 +1,13 @@
-@import url(
-  https://fonts.googleapis.com/css?family=Lato:100,
-  300,
-  400,
-  700,
-  900
-);
 
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600&display=swap');
+
+*{
+  font-family: "Poppins", sans-serif !important;
+}
 html,
 body {
   margin: 0;
   padding: 0;
-  font-family: "Lato", sans-serif;
   scroll-behavior: smooth;
 }
 .loader {
@@ -315,4 +312,68 @@ margin-right: 5rem !important;
   padding-top: 30px;
   margin-top: 30px;
   border-top: 2px solid #3a4659;
+}
+.medium-logo{
+  width: 74px;
+  height: 74px;
+}
+.container-text span{
+  font-weight: 300;
+}
+.container-text{
+  position: relative;
+  display: flex;
+  width: 90%;
+  min-height: 65px;
+  background: #ffffff;
+  border-radius: 10px;
+  margin-bottom: .8rem;
+  align-items: center;
+}
+.container-text span{
+  margin-right: 1rem;
+  margin-left: 2rem;
+}
+.container-medium{
+  position: relative;
+  display: flex;
+  width: 48%;
+  height: 60px;
+  background: #ffffff;
+  border-radius: 10px;
+  margin-bottom: .5rem;
+  align-items: center;
+  justify-content: center;
+}
+.btn-p1{
+  background: #fcaf05 !important;
+  color: white !important;
+  font-weight: bold !important;
+  outline: none !important;
+  border: none !important;
+}
+.no-p{
+  padding: 0rem !important;
+}
+.h-100-vh{
+  height: 100vh !important;
+}
+.bg-grey{
+  background: #f8f8f8;
+}
+.brl-50{
+  border-radius: 0px 50px 50px 0px;
+}
+.container-text input[type="button"]{
+  padding: 5px 15px !important;
+  background: red;
+}
+.container-text b{
+  font-weight: 400;
+}
+.container-medium button{
+  padding: 0px;
+  height: 40px;
+  width: 140px;
+  border-radius: 5px;
 }
