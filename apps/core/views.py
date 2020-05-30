@@ -28,6 +28,10 @@ def buy(request, id_product):
     except Product.DoesNotExist:
         raise Http404("Producto inexistente")
 
+def login(request):
+    """ Vista que muestra el html base par pruebas """
+    return render(request, 'core/login.html', {})
+
 def shop(request):
     products = Product.products.all()
     return render(request, 'core/shop.html', {'products':products})
