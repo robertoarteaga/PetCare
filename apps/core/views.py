@@ -28,7 +28,7 @@ def login(request):
     return render(request, 'core/login.html', {})
 
 def shop(request):
-    products = Product.objects.all()
+    products = Product.products.all()
     return render(request, 'core/shop.html', {'products':products})
 
 def dashboard(request):
