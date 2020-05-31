@@ -15,7 +15,7 @@ from django.shortcuts import get_object_or_404
 from django.contrib.auth import views as admin_views
 from apps.accounts.models import Product
 from apps.accounts.forms import *
-
+from django.db.models import *
 
 def landingPage(request):
     """ Vista que renderiza el landing page """
@@ -59,6 +59,7 @@ def fake_customer_auth(request):
         data['phone'] = None
         data['name'] = None
         return JsonResponse(data)
+
 def shop(request):
     products = Product.products.all()
     return render(request, 'core/shop.html', {'products':products})
@@ -68,10 +69,12 @@ def dashboard(request):
 
 
 def graphics(request):
+    best_selling = Product.products.annotate(total_orders=Count('orders')).order_by('-total_orders')
     context = {
         'is_popup':False, 
         'has_permission':True,
-        'site_url':True
+        'site_url':'/',
+        'best_selling':best_selling,
         }
     return render(request, 'core/graphics.html', context)
 
@@ -88,6 +91,10 @@ def get_sales(request):
 def products(request):
     products = Product.objects.all()
     return render(request, 'core/products.html',{'products':products})
+
+def services(request):
+    services = Product.services.all()
+    return render(request, 'core/services.html',{'services':services})
 
 def add_product(request):
 	if request.method == 'POST':

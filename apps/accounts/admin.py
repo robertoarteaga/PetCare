@@ -22,6 +22,7 @@ class OrderAdmin(admin.ModelAdmin):
 
     list_filter = (        
         'date_created',
+        'status',
         'product',
     )
 class ProductAdmin(admin.ModelAdmin):
