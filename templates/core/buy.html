@@ -94,7 +94,7 @@
 
 
     <script>
-        localStorage.setItem('user', 123);
+        
         var cant = document.getElementById('cantidad').value;
         var cont = document.getElementById('cantidad');
         document.getElementById('mas').addEventListener("click", function () {
@@ -117,15 +117,11 @@
         var arrayPurchase = [];
         document.getElementById('comp').addEventListener("click", function () {
             var histPurchase = localStorage.getItem("purchase");
-
-
-
-
             let user = getUser();
             let product = document.getElementById('id').value;
             let cantidad = document.getElementById('cantidad').value;
             let buyProduct = {
-                id: user,
+                id: user.pk,
                 product: product,
                 quantity: cantidad
             }
@@ -143,7 +139,7 @@
 
         });
         var getUser = function () {
-            let res = localStorage.getItem('user');
+            let res = JSON.parse(localStorage.getItem('user'));
             return res
         }
     </script>

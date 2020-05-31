@@ -17,5 +17,6 @@ urlpatterns = [
     path('clients/', views.clients, name="clients"),
     path('config/', views.config, name="config"),
     path('buy/<int:id_product>/',views.buy, name="buy"),
-    path('login/',views.login, name="login"),
+    path('customer_login/',views.customer_login, name="customer_login"),
+    path('fake_customer_auth/',views.fake_customer_auth, name="fake_customer_auth"),
 ]
