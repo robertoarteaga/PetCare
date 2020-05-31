@@ -44,15 +44,39 @@
 <header>
     {% include 'base/base_menu.html' %}
 </header>
+
+{% endblock %}
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+    <a href="/admin/">Inicio</a>
+    › Estadísticas
+</div>
+{% endblock %}
+{% block content %}
 <div class="container-fluid d-flex flex-column">
 
-    <div class="breadcrumbs">
-        <a href="/admin/">Inicio</a>
-        › Estadísticas
-    </div>
     <div class="w-100"></div>
     <div id="sales-chart" style="height: 400px; min-width: 750px; width: 100%;"></div>
-
+    <div class="row">
+        <table class="table">
+            <tr>
+                <th>Producto</th>
+                <th>Descripción</th>
+                <th>Categoría</th>
+                <th>Precio</th>
+                <th>Total ventas</th>
+            </tr>
+            {% for product in best_selling %}
+            <tr>
+                <td>{{ product.name }}</td>
+                <td>{{ product.description }}</td>
+                <td>{{ product.category }}</td>
+                <td>{{ product.price }}</td>
+                <td>{{ product.total_orders }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
 </div>
 <script defer>
     // Obtener el csrf_token

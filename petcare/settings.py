@@ -38,8 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'apps.core',
-    'apps.accounts',
     'apps.shop',
+    'apps.accounts',
     'widget_tweaks',
 ]
 

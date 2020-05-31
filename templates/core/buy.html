@@ -1,36 +1,44 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <head>
-		<meta charset="UTF-8">
-		<title>PetCare</title>
-		<meta name=”robots” content=”noindex” charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <meta charset="UTF-8">
+        <title>PetCare</title>
+        <meta name=”robots” content=”noindex” charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         <meta name="msapplication-TileColor" content="#ffffff">
-		<meta name="theme-color" content="#ffffff">
-		<link rel="shortcut icon" type="image/png" href="{% static 'img/logos/Cat4.png' %}">
-		<!-- Stylesheets -->
-		<link rel="stylesheet" href="{% static 'css/fontawesome.min.css' %}">
-		<link rel="stylesheet" href="{% static 'css/main.min.css' %}">
-    	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-	  	<link rel="stylesheet" href="{% static 'css/normalize.css' %}">
-		<link rel="stylesheet" href="{% static 'css/effects.css' %}">
-		<link rel="stylesheet" href="{% static 'css/animate.css' %}">
-		<link rel="stylesheet" href="{% static 'css/app.css' %}">
-	</head>
+        <meta name="theme-color" content="#ffffff">
+        <link rel="shortcut icon" type="image/png" href="{% static 'img/logos/Cat4.png' %}">
+        <!-- Stylesheets -->
+        <link rel="stylesheet" href="{% static 'css/fontawesome.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/main.min.css' %}">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
+        <link rel="stylesheet" href="{% static 'css/effects.css' %}">
+        <link rel="stylesheet" href="{% static 'css/animate.css' %}">
+        <link rel="stylesheet" href="{% static 'css/app.css' %}">
+    </head>
 </head>
+
 <body>
 
     <div class="container-fluid no-p h-100-vh bg-grey">
         <div class="w-100 d-flex flex-row h-100-vh">
             <div class="col-12 col-md-8 col-lg-8 d-flex p-0 brl-50 flex-column" style="background: white;">
                 <div class="w-100 p-3 ml-0">
-                    <a href="{% url 'shop' %}"><i class="fas fa-arrow-left"></i> Regresar</a> 
+                    <a href="{% url 'shop' %}"><i class="fas fa-arrow-left"></i> Regresar</a>
                 </div>
                 <div class="w-100 d-flex align-items-center justify-content-center flex-column">
-                    <h2>HILL SCIENCE DIET GATO SENIOR</h2>
-                    <img class="" src="{% static 'img/logos/Cat3.png' %}" alt="">
+                    <h2>{{ product.name }}</h2>
+                    {% if product.img_product %}
+                    <img src="{{ product.img_product.url}}" alt="">
+                    {% else %}
+                    <img src="" alt="">
+                    {% endif %}
                 </div>
             </div>
             <div class="container-fluid col-12 col-md-4 col-lg-4 d-flex pr-0 pl-0 flex-column pt-3 h-100-vh">
@@ -42,23 +50,24 @@
                     <div class="container-text align-items-center justify-content-center">
 
                         <!-- ID DEL PRODUCTO -->
-                        <input type="button" value="3232" id="id" hidden>
+                        <input type="button" value={{ product.id }} id="id" hidden>
                         <!-- NOMBRE DEL PRODUCTO -->
-                        <b class="text-uppercase font-weight-bold">HILL'S SCIENCE DIET - Gato Senior</b>
+                        <b class="text-uppercase font-weight-bold">{{ product.name }}</b>
                     </div>
                     <div class="container-text">
                         <!-- PROVEEDOR DEL PRODUCTO -->
-                        <span>Proveedor:</span><b>HILL'S SCIENCE</b>
+                        <span>Descripción:</span><b>{{ product.description }}</b>
                     </div>
                     <div class="container-text">
                         <!-- PRECIO DEL PRODUCTO -->
-                        <span>Precio:</span><b>$ 408.00</b>
+                        <span>Precio:</span><b>$ {{ product.price }}</b>
                     </div>
                     <div class="container-text d-flex bd-highlight pr-4">
                         <!-- CANTIDAD DEL PRODUCTO -->
-                        <span class="mr-auto bd-highlight">Cantidad:</span> 
-                        <input type="button" value="-" id="menos"> 
-                            <input type="button" class="btn mr-3 ml-3" style="font-size: 1.4rem;" id="cantidad" value="1" id="cantidad" disabled>
+                        <span class="mr-auto bd-highlight">Cantidad:</span>
+                        <input type="button" value="-" id="menos">
+                        <input type="button" class="btn mr-3 ml-3" style="font-size: 1.4rem;" id="cantidad" value="1"
+                            id="cantidad" disabled>
                         <input type="button" value="+" id="mas">
                     </div>
                     <div class="container-text flex-column align-items-start" style="background: none;">
@@ -85,75 +94,92 @@
 
 
     <script>
-        localStorage.setItem('user',123);
+
         var cant = document.getElementById('cantidad').value;
         var cont = document.getElementById('cantidad');
-        document.getElementById('mas').addEventListener("click", function(){
+
+        /*
+        // Función para incrementar la cantidad de producto
+        */
+        document.getElementById('mas').addEventListener("click", function () {
             cant = parseInt(cant);
-            cant = cant+1;
+            cant = cant + 1;
             cont.value = cant;
         });
 
-        document.getElementById('menos').addEventListener("click", function(){
+        /*
+        // Función para reducir la cantidad de producto
+        */
+        document.getElementById('menos').addEventListener("click", function () {
             cant = parseInt(cant);
-            cant = cant-1;
-            if(cant <= 0){
+            cant = cant - 1;
+            if (cant <= 0) {
                 cant = 1;
                 cont.value = 1;
-            }else{
+            } else {
                 cont.value = cant;
             }
         });
 
         var arrayPurchase = [];
-        document.getElementById('comp').addEventListener("click", function(){
+        document.getElementById('comp').addEventListener("click", function () {
             var histPurchase = localStorage.getItem("purchase");
-
-            
-
-
             let user = getUser();
             let product = document.getElementById('id').value;
             let cantidad = document.getElementById('cantidad').value;
-            let buyProduct = {
-                id: user,
-                product: product,
-                quantity: cantidad
-            }
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    data = JSON.parse(this.responseText)
 
-            if(histPurchase == null){
-                arrayPurchase.push(buyProduct);
-            } else {
-                arrayPurchase = JSON.parse(histPurchase);
-                arrayPurchase.push(buyProduct);
-            }
+                }
+            };
+            xhttp.open("POST", "{% url 'buy_product' %}", true);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send(`user_id=${user.id}&product_id=${product}&cuantity=${cantidad}`);
+            // let buyProduct = {
+            //     id: user.pk,
+            //     product: product,
+            //     quantity: cantidad
+            // }
+
+            // if (histPurchase == null) {
+            //     arrayPurchase.push(buyProduct);
+            // } else {
+            //     arrayPurchase = JSON.parse(histPurchase);
+            //     arrayPurchase.push(buyProduct);
+            // }
             // console.log(arrayPurchase);
-
-
-            localStorage.setItem('purchase',JSON.stringify(arrayPurchase));
+            // localStorage.setItem('purchase', JSON.stringify(arrayPurchase));
+            // Hacer la petición para pagar
 
         });
-        var getUser = function(){
-            let res = localStorage.getItem('user');
+
+        /*
+        // Función para obtener el usurio del local storage
+        */
+        var getUser = function () {
+            let res = JSON.parse(localStorage.getItem('user'));
             return res
         }
     </script>
 
     <!-- Scripts -->
-		<script src="{% static 'js/jquery.min.js' %}"></script>
-		<script src="{% static 'js/headroom.min.js' %}"></script>
-		<script src="{% static 'js/imagesloaded.min.js' %}"></script>
-		<script src="{% static 'js/main.min.js' %}"></script>
-    	<!-- Preloader & Principal Page -->
-		<script defer src="https://use.fontawesome.com/releases/v5.8.1/js/all.js"
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/headroom.min.js' %}"></script>
+    <script src="{% static 'js/imagesloaded.min.js' %}"></script>
+    <script src="{% static 'js/main.min.js' %}"></script>
+    <!-- Preloader & Principal Page -->
+    <script defer src="https://use.fontawesome.com/releases/v5.8.1/js/all.js"
         integrity="sha384-g5uSoOSBd7KkhAMlnQILrecXvzst9TdC09/VM+pjDTCM+1il8RHz5fKANTFFb+gQ"
         crossorigin="anonymous"></script>
-		<script src="{% static 'js/modernizr.custom.js' %}"></script>
-		<script src="{% static 'js/classie.js' %}"></script>
-		<script src="{% static 'js/pathLoader.js' %}"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TweenMax.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.15/lodash.min.js"></script>
-		<script src="{% static 'js/preloader.js' %}"></script>
- 		<script src="{% static 'js/script.js' %}"></script>
+    <script src="{% static 'js/modernizr.custom.js' %}"></script>
+    <script src="{% static 'js/classie.js' %}"></script>
+    <script src="{% static 'js/pathLoader.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TweenMax.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.15/lodash.min.js"></script>
+    <script src="{% static 'js/preloader.js' %}"></script>
+    <script src="{% static 'js/script.js' %}"></script>
 </body>
+
 </html>
