@@ -1,0 +1,27 @@
+{% extends 'shop/base_shop.html' %}
+
+{% block content %}
+<div class="row d-flex flex-wrap justify-content-around">
+    <!-- PRODUCTS -->
+    {% for service in services %}
+    <div class="card col-sm-12 col-md-5 mb-5" style="width: 18rem;">
+        <div class="card-header">
+            <span>{{ service.name }}</span>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">
+              <p>{{ service.description }}</p>
+              <br>
+              <span><b>Precio:</b>${{ service.price }}</span>
+                
+                <a href="{% url 'buy' service.id %}" class="btn btn-primary align-self-end mt-1">
+                    <i class="fas fa-shopping-cart mr-1"></i>Contratar
+                </a>
+            </li>
+            
+        </ul>
+      </div>
+    
+    {% endfor %}
+</div>
+{% endblock %}

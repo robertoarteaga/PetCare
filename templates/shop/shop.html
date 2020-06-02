@@ -1,0 +1,27 @@
+{% extends 'shop/base_shop.html' %}
+
+{% block content %}
+    {% for product in products %}
+    <div class="col-12 col-xs-12 col-sm-6 col-lg-4 d-flex flex-column align-items-center justify-content-center mb-5">
+        <div class="container-card">
+            <div class="head-card">
+                {% if product.img_product %}
+                <img src="{{ product.img_product.url}}" alt="">
+                {% else %}
+                <img src="" alt="">
+                {% endif %}
+            </div>
+            <div class="body-card">
+                <span>{{ product.name }}</span>
+                <p>{{ product.description }}</p>
+                <p class="text-primary text-bold">${{ product.price }} MXN</p>
+                <p>
+                    <a href="{% url 'buy' product.id %}">
+                        <button class="btn btn-primary"><i class="fas fa-shopping-cart mr-1"></i>Comprar</button>
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+{% endblock %}

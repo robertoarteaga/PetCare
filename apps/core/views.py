@@ -26,44 +26,6 @@ def base(request):
     """ Vista que muestra el html base par pruebas """
     return render(request, 'base/base.html', {})
 
-def buy(request, id_product):
-    """ Vista que muestra el html base par pruebas """
-    try:
-        product = Product.products.get(pk = id_product)
-        return render(request, 'core/buy.html', {'product':product})
-    except Product.DoesNotExist:
-        raise Http404("Producto inexistente")
-
-
-def customer_login(request):
-    """ Vista que muestra el html base par pruebas """
-    return render(request, 'core/customer_login.html', {})
-
-@csrf_exempt
-@require_POST
-def fake_customer_auth(request):
-    try:
-        data = {}
-        customer = Customer.objects.get(pk=request.POST['customer_id'])
-        data['pk'] = customer.pk
-        data['id'] = customer.id
-        data['email'] = customer.email
-        data['phone'] = customer.email
-        data['name'] = customer.name
-        return JsonResponse(data)
-    except:
-        data = {}
-        data['pk'] = 0
-        data['id'] = 0
-        data['email'] = None
-        data['phone'] = None
-        data['name'] = None
-        return JsonResponse(data)
-
-def shop(request):
-    products = Product.products.all()
-    return render(request, 'core/shop.html', {'products':products})
-
 def dashboard(request):
     return render(request, 'core/dashboard.html', {})
 
@@ -91,10 +53,6 @@ def get_sales(request):
 def products(request):
     products = Product.objects.all()
     return render(request, 'core/products.html',{'products':products})
-
-def services(request):
-    services = Product.services.all()
-    return render(request, 'core/services.html',{'services':services})
 
 def add_product(request):
 	if request.method == 'POST':
