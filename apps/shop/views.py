@@ -34,10 +34,10 @@ def buy(request, id_product):
 def contract_service(request, id_service):
     """ Vista que muestra la vista de compra de un servicio """
     try:
-        product = Product.services.get(pk = id_service)
-        return render(request, 'shop/contract_service.html', {'product':product})
+        service = Product.services.get(pk = id_service)
+        return render(request, 'shop/contract_service.html', {'service':service})
     except Product.DoesNotExist:
-        raise Http404("Producto inexistente")
+        raise Http404("Servicio inexistente")
 
 
 def customer_login(request):
@@ -83,3 +83,48 @@ def buy_product(request):
     except Exception as e:
         print(e)
         return JsonResponse({'data':None})
+
+@csrf_exempt
+def buy_service(request):
+    try:
+        service = Product.objects.get(pk=int(request.POST['service_id']))
+        customer = Customer.objects.get(pk=int(request.POST['user_id']))
+        Order.objects.create(customer=customer, product=service, status='Pending')
+        print("================0")
+        print("Servicio creado")
+        print("================0")
+        return JsonResponse({'data':None, 'success':True})
+    except Exception as e:
+        print(e)
+        return JsonResponse({'data':None, 'success':False})
+
+def cart(request):
+    return render(request, 'shop/cart.html')
+
+
+def dictfetchall(cursor): 
+    "Returns all rows from a cursor as a dict" 
+    desc = cursor.description 
+    return [
+            dict(zip([col[0] for col in desc], row)) 
+            for row in cursor.fetchall() 
+    ]
+@csrf_exempt
+def get_customer_cart(request):
+    try:
+        user_id = int(request.POST['user_id'])
+        # data = Order.objects.filter(customer_id=user_id).values('product_name')
+        # print(data)
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT * FROM accounts_order o, accounts_product as p WHERE o.customer_id = %s AND p.id = o.product_id AND p.category <> 'Servicio' ORDER BY o.date_created;", [user_id])
+            # rows = cursor.fetchall()
+            products = dictfetchall(cursor)
+
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT * FROM accounts_order o, accounts_product as p WHERE o.customer_id = %s AND p.id = o.product_id AND p.category = 'Servicio' ORDER BY o.date_created;", [user_id])
+            # rows = cursor.fetchall()
+            services = dictfetchall(cursor)
+        return JsonResponse({'products':products, 'services':services}, safe=False)
+    except Exception as e:
+        print(e)
+        return JsonResponse({'data':None, 'success':False})
