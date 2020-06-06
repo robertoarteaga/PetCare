@@ -6,28 +6,28 @@
             </a>
         </div>
         <div class="col-2 d-flex align-items-center justify-content-center">
-            <a href="{% url 'graphics' %}" class="btn">
-                <i class="fas fa-chart-pie"></i>&nbsp Gráficos
+            <a href="{% url 'products_graphics' %}" class="btn">
+                <i class="fas fa-chart-pie"></i>&nbsp Productos Estadísticas
             </a>
         </div>
         <div class="col-2 d-flex align-items-center justify-content-center">
-            <a href="/admin/accounts/product/" class="btn">
-                <i class="fas fa-chart-pie"></i>&nbsp Productos
+            <a href="{% url 'services_graphics' %}" class="btn">
+                <i class="fas fa-chart-pie"></i>&nbsp Servicios estadísticas
             </a>
         </div>
         <div class="col-2 d-flex align-items-center justify-content-center">
             <a href="/admin/accounts/order/" class="btn">
-                <i class="fas fa-chart-pie"></i>&nbsp Ventas
+                <i class="fas fa-piggy-bank"></i>&nbsp Historial de Ventas
             </a>
         </div>
         <div class="col-2 d-flex align-items-center justify-content-center">
             <a href="/admin/accounts/customer/" class="btn">
-                <i class="fas fa-chart-pie"></i>&nbsp Clientes
+                <i class="fas fa-wallet"></i>&nbsp Clientes
             </a>
         </div>
         <div class="col-md-2 d-flex align-items-center justify-content-center">
         <a href="/admin/auth/user/ {{ request.user.id|safe }} /change/" class="btn">
-            <i class="fas fa-chart-pie"></i>&nbsp Perfil
+            <i class="fas fa-user-circle"></i>&nbsp Perfil
         </a>
     </div>
     </div>

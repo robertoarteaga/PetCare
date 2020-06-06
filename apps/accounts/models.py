@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.urls import reverse
 # Create your models here.
 
 
@@ -17,6 +17,9 @@ class Customer(models.Model):
     def orders(self):
         order_count = self.order_set.all().count()
         return str(order_count)
+
+    def get_absolute_url(self):
+        return reverse('customer-detail', kwargs={'pk': self.pk})
 
     class Meta:
         verbose_name = "Cliente"
