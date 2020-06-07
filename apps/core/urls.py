@@ -20,4 +20,5 @@ urlpatterns = [
     path('update_customer/<int:pk>', views.UpdateCustomer.as_view(), name="update_customer"),
     path('get_monthly_sales_products/', views.get_monthly_sales_products, name="get_monthly_sales_products"),
     path('get_monthly_sales_services/', views.get_monthly_sales_services, name="get_monthly_sales_services"),
+    path('SalesReport/', views.SalesReport.as_view(), name="SalesReport"),
 ]
