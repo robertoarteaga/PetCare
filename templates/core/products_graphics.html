@@ -1,0 +1,299 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+
+{% block extrahead  %}
+<link rel="shortcut icon" type="image/png" href="{% static 'img/logos/Cat3.png' %}">
+
+<!-- Stylesheets -->
+<link rel="stylesheet" href="{% static 'admin/css/base.css' %}">
+<link rel="stylesheet" href="{% static 'css/core.css' %}">
+<link rel="stylesheet" href="{% static 'css/fontawesome.min.css' %}">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="{% static 'css/core.css' %}">
+<script defer src="https://use.fontawesome.com/releases/v5.8.1/js/all.js"
+    integrity="sha384-g5uSoOSBd7KkhAMlnQILrecXvzst9TdC09/VM+pjDTCM+1il8RHz5fKANTFFb+gQ"
+    crossorigin="anonymous"></script>
+
+<script src="https://code.highcharts.com/stock/highstock.js"></script>
+<script src="https://code.highcharts.com/stock/modules/data.js"></script>
+<script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/stock/modules/export-data.js"></script>
+{% endblock %}
+
+{% block title %}Petcare{% endblock %}
+
+
+{% block branding %}
+<div class="row col-12 pb-0 p-2 pl-3">
+    <div class="col-4 d-xs-none d-md-block d-flex align-items-center pt-4px">
+        PetCare - CRM
+    </div>
+    <div class="col-4 col-xs-12 d-flex justify-content-center">
+        <img class="mini-logo" src="{% static 'img/logos/Cat.png' %}" alt="">
+    </div>
+    <div class="col-4 d-flex justify-content-end d-flex align-items-center">
+        <img class="profile-picture" src="https://i.imgur.com/Qv8PA8G.png" alt="Profile">
+
+        {{ request.user }}
+    </div>
+</div>
+{% endblock %}
+
+
+{% block nav-global %}
+<header>
+    {% include 'base/base_menu.html' %}
+</header>
+
+{% endblock %}
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+    <a href="/admin/">Inicio</a>
+    › Estadísticas
+</div>
+{% endblock %}
+{% block content %}
+<div class="container-fluid d-flex flex-column">
+    <div class="row">
+        <a href="{% url 'SalesReport' %}" class="btn btn-success" style="color:white !important">Descargar reporte</a>
+    </div>
+    <div class="w-100"></div>
+    <div id="sales-chart" style="height: 400px; min-width: 750px; width: 100%;"></div>
+    <div id="monthly-sales" style="height: 2500px; min-width: 750px; width: 100%;"></div>
+    <div class="row">
+        <h5>Consulta del estado de las ventas (en producto)</h5>
+        <table class="table">
+            <tr>
+                <th>Cierre semanal</th>
+                <th>Cierre mensual</th>
+                <th>Ventas del año</th>
+            </tr>
+            <tr>
+                <td>
+                    {% if week_close.week_close is None %}
+                    No se han vendido productos esta semana
+                    {% else %}
+                    ${{ week_close.week_close }}
+                    {% endif %}
+                </td>
+                <td>
+                    {% if month_close.month_close is None %}
+                    No se han vendido productos esta semana
+                    {% else %}
+                    ${{ month_close.month_close }}
+                    {% endif %}
+                </td>
+                <td>
+                    {% if year_close.year_close is None %}
+                    No se han vendido productos esta semana
+                    {% else %}
+                    ${{ year_close.year_close|floatformat:2 }}
+                    {% endif %}
+                </td>
+            </tr>
+        </table>
+        <table class="table">
+            <tr><th>Mes</th><th>Cierre</th></tr>
+            <tr><td>Enero</td><td>${{ january_close.year_close|floatformat:2 }}</td></tr>
+            <tr><td>Febreo</td><td>${{ february_close.year_close|floatformat:2 }}</td></tr>
+            <tr><td>Marzo</td><td>${{ march_close.year_close|floatformat:2 }}</td></tr>
+            <tr><td>Abril</td><td>${{ april_close.year_close|floatformat:2 }}</td></tr>
+            <tr><td>Mayo</td><td>${{ may_close.year_close|floatformat:2 }}</td></tr>
+            <tr><td>Junio</td><td>${{ june_close.year_close|floatformat:2 }}</td></tr>
+            <tr><td><b>Total:</b></td><td><b>${{ year_close.year_close|floatformat:2 }}</b></td></tr>
+        </table>
+
+    </div>
+    <div class="row">
+
+        <h5>
+            
+            Consulta de productos más demandados 
+            <a data-toggle="collapse" href="#collapse_best_selling" data-toggle="collapse" >
+                VER
+            </a>
+        </h5>
+        
+        <table class="table collapse" id="collapse_best_selling">
+            <tr>
+                <th>Producto</th>
+                <th>Descripción</th>
+                <th>Categoría</th>
+                <th>Precio</th>
+                <th>Total ventas</th>
+                <th>Total MXN</th>
+            </tr>
+            {% for product in best_selling %}
+            <tr>
+                <td>{{ product.name }}</td>
+                <td>{{ product.description }}</td>
+                <td>{{ product.category }}</td>
+                <td>${{ product.price }}</td>
+                <td>{{ product.total_orders }}</td>
+                <td>${{ product.total_mxn|floatformat:2 }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+        
+    <div class="row">
+        <h5>
+            Consulta de productos menos demandados
+            <a data-toggle="collapse" href="#collapse_worst_selling" data-toggle="collapse" >
+                VER
+            </a>
+            
+        </h5>
+        <p style="color:red !important;">Los siguientes productos podrían estar siendo una carga de almacén si no hay
+            demanda, podrías generar un descuento o retirarlos del inventario.</p>
+        <table class="table collapse" id="collapse_worst_selling">
+            <tr>
+                <th>Producto</th>
+                <th>Descripción</th>
+                <th>Categoría</th>
+                <th>Precio</th>
+                <th>Total ventas</th>
+                <th>Total MXN</th>
+            </tr>
+            {% for product in worst_selling %}
+            <tr>
+                <td>{{ product.name }}</td>
+                <td>{{ product.description }}</td>
+                <td>{{ product.category }}</td>
+                <td>${{ product.price }}</td>
+                <td>{{ product.total_orders }}</td>
+                <td>${{ product.total_mxn|floatformat:2 }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    
+</div>
+<script defer>
+    // Obtener el csrf_token
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    // Petición ajax
+    var data = []
+    var csrftoken = getCookie('csrftoken');
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+
+            data = JSON.parse(this.responseText)
+            data.forEach(e => {
+                e[0] = new Date(e[0]).getTime()
+
+            })
+            // console.log(data);
+            Highcharts.stockChart('sales-chart', {
+                rangeSelector: {
+                    selected: 5
+                },
+
+                title: {
+                    text: 'Ventas en producto enero - junio'
+                },
+
+                series: [{
+                    name: 'Ventas',
+                    data: data,
+                    tooltip: {
+                        valueDecimals: 2
+                    }
+                }]
+            });
+        }
+    };
+    xhttp.open("POST", "{% url 'get_sales_products' %}", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.setRequestHeader("X-CSRFToken", csrftoken);
+    xhttp.send();
+
+    var chart1; // globally available
+    document.addEventListener('DOMContentLoaded', function () {
+        var xhttp2 = new XMLHttpRequest();
+        
+        xhttp2.open("POST", "{% url 'get_monthly_sales_products' %}", true);
+        xhttp2.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp2.setRequestHeader("X-CSRFToken", csrftoken);
+        xhttp2.send();
+        // --------- obtener ventas por producto al mes
+        xhttp2.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+
+                data = JSON.parse(this.responseText)
+                // console.log("============");
+                // console.log(data);
+                // console.log("============");
+                series = [
+                    {name:'enero', data:[]},
+                    {name:'febrero',data:[]},
+                    {name:'marzo',data:[]},
+                    {name:'abril',data:[]},
+                    {name:'mayo',data:[]},
+                    {name:'junio',data:[]}
+                ]
+                data.forEach(e => {
+                    series[0].data.push(e[1]) 
+                    series[1].data.push(e[2]) 
+                    series[2].data.push(e[3]) 
+                    series[3].data.push(e[4]) 
+                    series[4].data.push(e[5]) 
+                    series[5].data.push(e[6]) 
+                })
+                categories = []
+                data.forEach(e => {
+                    
+                    categories.push(e[0])
+                })
+                console.log(categories);
+                
+                var myChart = Highcharts.chart('monthly-sales', {
+                    chart: {
+                        type: 'bar'
+                    },
+                    title: {
+                        text: 'Ventas mensuales en producto'
+                    },
+                    xAxis: {
+                        categories: categories
+                    },
+                    yAxis: {
+                        title: {
+                            text: 'Cantidad vendida'
+                        }
+                    },
+                    series: series
+                });
+            }
+        };
+        xhttp2.open("POST", "{% url 'get_monthly_sales_products' %}", true);
+        xhttp2.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp2.setRequestHeader("X-CSRFToken", csrftoken);
+        xhttp2.send();
+
+    });
+
+
+
+
+</script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+{% endblock %}

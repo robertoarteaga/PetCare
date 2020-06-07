@@ -1,0 +1,41 @@
+<nav>
+    <ul class="nav-primary">
+        <li>
+            <a href="{% url 'index' %}">Nosotros</a>
+        </li>
+        <li>
+            <a href="{% url 'services' %}">Servicios</a>
+        </li>
+        <li>
+            <a href="{% url 'shop' %}">Productos</a>
+        </li>
+        <li>
+            <a href="{% url 'cart' %}">Mi carrito</a>
+        </li>
+        
+        <li id="li_iniciar_sesion">
+            <a class="button button-secondary" href="{% url 'customer_login' %}">
+                INICIAR SESIÓN
+            </a>
+        </li>
+        <li id="li_cerrar_sesion" style="display:none">
+            <a class="button button-secondary" onClick="log_out()">
+                Cerrar sesión
+            </a>
+        </li>
+    </ul>
+</nav>
+
+<script>
+    li_log_in = document.getElementById("li_iniciar_sesion");
+    li_log_out = document.getElementById("li_cerrar_sesion")
+    if(localStorage.getItem('user')){
+        li_log_in.style.display = "none";
+        li_log_out.style.display = "block";
+    }
+    function log_out(){
+        localStorage.clear()
+        li_log_in.style.display = "block";
+        li_log_out.style.display = "none";
+    }
+</script>

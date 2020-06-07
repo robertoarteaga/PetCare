@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.urls import reverse
 # Create your models here.
 
 
@@ -17,6 +17,9 @@ class Customer(models.Model):
     def orders(self):
         order_count = self.order_set.all().count()
         return str(order_count)
+
+    def get_absolute_url(self):
+        return reverse('customer-detail', kwargs={'pk': self.pk})
 
     class Meta:
         verbose_name = "Cliente"
@@ -96,7 +99,7 @@ class Order(models.Model):
 
     customer = models.ForeignKey(
         Customer, on_delete=models.SET_NULL, null=True)
-    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True, related_name = 'orders')
+    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True, related_name = 'get_orders')
     date_created = models.DateTimeField(
         auto_now_add=True, null=True, blank=True)
     status = models.CharField(max_length=200, null=True, choices=STATUS)

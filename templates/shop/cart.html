@@ -1,0 +1,56 @@
+{% extends 'shop/base_shop.html' %}
+
+{% block content %}
+
+<div>
+    <h3>Servicios solicitados</h3>
+    <br>
+    <div id="servicios" class="row">
+
+    </div>
+</div>
+<div>
+    <h3>Tus compras</h3>
+    <br>
+    <div id="compras" class="row">
+
+    </div>
+</div>
+<script>
+    var getUser = function () {
+        let res = JSON.parse(localStorage.getItem('user'));
+        return res
+    }
+
+    window.onload = () => {
+        let user = getUser();
+        if (user.id) {
+
+
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    data = JSON.parse(this.responseText)
+                    console.log(data);
+                    compras = document.getElementById("compras");
+                    compras.innerHTML = "";
+                    data.products.forEach(product => {
+                        compras.innerHTML += `<div class='col-sm-12 card mb-2 ${product.status}'><p>Compraste ${product.name} <br>Fecha: ${Date(product.date_created)},<br> estatus:<b> ${product.status}</b></p></div>`
+                    });
+
+                    servicios = document.getElementById("servicios");
+                    servicios.innerHTML = "";
+                    data.services.forEach(product => {
+                        servicios.innerHTML += `<div class='col-sm-12 card mb-2 ${product.status}'><p>Solicitaste <b>${product.name}</b><br> Fecha: ${Date(product.date_created)},<br> estatus:<b> ${product.status}</b></p></div>`
+                    });
+
+                }
+            };
+            xhttp.open("POST", "{% url 'get_customer_cart' %}", true);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send(`user_id=${user.id}`)
+        }
+
+    }
+</script>
+{% endblock %}

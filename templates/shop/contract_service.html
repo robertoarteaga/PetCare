@@ -1,0 +1,56 @@
+{% extends 'shop/base_shop.html' %}
+
+{% block content %}
+<div class="row d-flex flex-column justify-self-center" style="width: 100% !important;">
+    <p>Vas a contratar el siguiente servicio, ¿estás de acuerdo?</p>
+    <br>
+    <p><b>Servicio: </b> {{ service }}</p>
+    <p><b>Precio: </b>${{ service.price }}</p>
+    <br>
+    <span>Una vez contratado el servicio se a domicilio se realizará a tu ubicación actual</span>
+    <br>
+    <input type="number" name="" id="service_id" value={{ service.id }} hidden>
+    
+    <button class="btn btn-primary" id="comp"><i class="fas fa-shopping-cart mr-1"></i>Contratar</button>
+    <a href="{% url 'services' %}" class="btn btn-danger mt-2">
+        Cancelar
+    </a>
+</div>
+
+
+<script>
+
+    /*
+        // Función para obtener el usurio del local storage
+        */
+    var getUser = function () {
+        let res = JSON.parse(localStorage.getItem('user'));
+        return res
+    }
+    /*
+    // Función para incrementar la cantidad de producto
+    */
+    document.getElementById('comp').addEventListener("click", function () {
+        let user = getUser();
+        let service_id = document.getElementById('service_id').value;
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                data = JSON.parse(this.responseText)
+                console.log(data);
+                if(data.success){
+                    alert("Estamos preparando todo, nos comunicaremos contigo")
+                }else{
+                    alert("No estamos disponibles por el momento, intenta después")
+                }
+            }
+        };
+        xhttp.open("POST", "{% url 'buy_service' %}", true);
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.send(`user_id=${user.id}&service_id=${service_id}`);
+    });
+
+
+</script>
+
+{% endblock %}

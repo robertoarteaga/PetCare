@@ -656,6 +656,8 @@ div.breadcrumbs a:focus, div.breadcrumbs a:hover {
 .deletelink {
     padding-left: 16px;
     background: url(../img/icon-deletelink.svg) 0 1px no-repeat;
+    height: 35px !important;
+    text-align: center !important;
 }
 
 a.deletelink:link, a.deletelink:visited {
@@ -988,4 +990,16 @@ table#change-history tbody th {
 
 .popup #header {
     padding: 10px 20px;
+}
+
+
+/* Personalized styles */
+.total_orders{
+    width: 60px;
+    height: 60px;
+    background-color: #c4dce8;
+    border-radius: 5px;
+    text-align: center;
+    padding-top: 10px;
+    font-size: 25px;
 }
