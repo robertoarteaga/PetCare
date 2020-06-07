@@ -267,7 +267,7 @@ body {
   position: relative;
   display: flex;
   width: 75%;
-  min-height: 430px;
+  min-height: 380px;
   flex-flow: column;
   border-radius: 10px;
   border: 1.3px solid #e6dddd;
@@ -285,7 +285,6 @@ body {
   justify-content: center;
 }
 .body-card {
-  height: 40%;
   width: 100%;
 }
 .head-card img {
