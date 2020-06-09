@@ -55,7 +55,9 @@
 {% endblock %}
 {% block content %}
 <div class="container-fluid d-flex flex-column">
-
+    <div class="row">
+        <a href="{% url 'SalesReport' %}" class="btn btn-success" style="color:white !important">Descargar reporte</a>
+    </div>
     <div class="w-100"></div>
     <div id="sales-chart" style="height: 400px; min-width: 750px; width: 100%;"></div>
     <div id="monthly-sales" style="height: 1000px; min-width: 750px; width: 100%;"></div>

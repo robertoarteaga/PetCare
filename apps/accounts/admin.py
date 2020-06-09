@@ -16,18 +16,18 @@ class CustomerAdmin(admin.ModelAdmin):
     list_filter = (        
         'date_created',
     )
-
+    ordering = ['-date_created']
     def change_view(self, request, object_id, form_url='', extra_context=None):
         extra_context = extra_context or {}
         extra_context['model_instance'] = Customer.objects.get(pk=object_id)
-        extra_context['orders'] = Order.objects.filter(customer_id=object_id)
+        extra_context['orders'] = Order.objects.filter(customer_id=object_id).order_by('-date_created')
         return super().change_view(
             request, object_id, form_url, extra_context=extra_context,
         )
 
 class OrderAdmin(admin.ModelAdmin):
     list_display = ('product', 'customer', 'date_created')
-    ordering = ['date_created']
+    ordering = ['-date_created']
     list_filter = (        
         'date_created',
         'status',
