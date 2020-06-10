@@ -133,45 +133,72 @@
                         swal("Yeep! Tu compra está en camino", {
                         icon: "success",
                         });
-                        buyItem();
-                    } else {
-                        swal("Te seguiremos esperando!");
+                        
+                        var histPurchase = localStorage.getItem("purchase");
+                        let user = getUser();
+                        let product = document.getElementById('id').value;
+                        let cantidad = document.getElementById('cantidad').value;
+                        var xhttp = new XMLHttpRequest();
+                        xhttp.onreadystatechange = function () {
+                            if (this.readyState == 4 && this.status == 200) {
+                                data = JSON.parse(this.responseText)
+                                console.log(data);
+                                
+                            }
+                        };
+                        xhttp.open("POST", "{% url 'buy_product' %}", true);
+                        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                        xhttp.send(`user_id=${user.id}&product_id=${product}&cuantity=${cantidad}`);
+                        // let buyProduct = {
+                        //     id: user.pk,
+                        //     product: product,
+                        //     quantity: cantidad
+                        // }
+
+                        // if (histPurchase == null) {
+                        //     arrayPurchase.push(buyProduct);
+                        // } else {
+                        //     arrayPurchase = JSON.parse(histPurchase);
+                        //     arrayPurchase.push(buyProduct);
+                        // }
+                        // console.log(arrayPurchase);
+                        // localStorage.setItem('purchase', JSON.stringify(arrayPurchase));
+                        // Hacer la petición para pagar
                     }
                 });
-
         });
 
         var buyItem = function(){
-            var histPurchase = localStorage.getItem("purchase");
-            let user = getUser();
-            let product = document.getElementById('id').value;
-            let cantidad = document.getElementById('cantidad').value;
-            var xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function () {
-                if (this.readyState == 4 && this.status == 200) {
-                    data = JSON.parse(this.responseText)
-                    console.log(data);
+            // var histPurchase = localStorage.getItem("purchase");
+            // let user = getUser();
+            // let product = document.getElementById('id').value;
+            // let cantidad = document.getElementById('cantidad').value;
+            // var xhttp = new XMLHttpRequest();
+            // xhttp.onreadystatechange = function () {
+            //     if (this.readyState == 4 && this.status == 200) {
+            //         data = JSON.parse(this.responseText)
+            //         console.log(data);
                     
-                }
-            };
-            xhttp.open("POST", "{% url 'buy_product' %}", true);
-            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xhttp.send(`user_id=${user.id}&product_id=${product}&cuantity=${cantidad}`);
-            // let buyProduct = {
-            //     id: user.pk,
-            //     product: product,
-            //     quantity: cantidad
-            // }
+            //     }
+            // };
+            // xhttp.open("POST", "{% url 'buy_product' %}", true);
+            // xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            // xhttp.send(`user_id=${user.id}&product_id=${product}&cuantity=${cantidad}`);
+            // // let buyProduct = {
+            // //     id: user.pk,
+            // //     product: product,
+            // //     quantity: cantidad
+            // // }
 
-            // if (histPurchase == null) {
-            //     arrayPurchase.push(buyProduct);
-            // } else {
-            //     arrayPurchase = JSON.parse(histPurchase);
-            //     arrayPurchase.push(buyProduct);
-            // }
-            // console.log(arrayPurchase);
-            // localStorage.setItem('purchase', JSON.stringify(arrayPurchase));
-            // Hacer la petición para pagar
+            // // if (histPurchase == null) {
+            // //     arrayPurchase.push(buyProduct);
+            // // } else {
+            // //     arrayPurchase = JSON.parse(histPurchase);
+            // //     arrayPurchase.push(buyProduct);
+            // // }
+            // // console.log(arrayPurchase);
+            // // localStorage.setItem('purchase', JSON.stringify(arrayPurchase));
+            // // Hacer la petición para pagar
         }
 
         /*

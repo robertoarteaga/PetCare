@@ -48,22 +48,22 @@
 		<!-- Header -->
 		<header id="header" class="header-dynamic header-shadow-scroll">
 			<div class="container">
-				<a class="logo" href="index-2.html">
+				<a class="logo" href="">
 					<img src="{% static 'img/logos/petcare-white.png' %}" alt="" style="height: 34px;">
 				</a>
 				<nav>
 					<ul class="nav-primary">
 						<li>
-							<a href="{% url 'index' %}">INICIO</a>
+							<a class="blue-scroll" href="{% url 'index' %}">INICIO</a>
 						</li>
 						<li>
-							<a href="#cate">CATEGORÍAS</a>
+							<a class="blue-scroll" href="#cate">CATEGORÍAS</a>
 						</li>
 						<li>
-							<a href="#info">NOSOTROS</a>
+							<a class="blue-scroll" href="#info">NOSOTROS</a>
 						</li>
 						<li>
-							<a href="{% url 'shop' %}">Tienda</a>
+							<a class="blue-scroll" href="{% url 'shop' %}">Tienda</a>
 						</li>
 						<!-- <li>
 							<a class="button button-secondary" href="{% url 'customer_login' %}">
@@ -466,7 +466,8 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TweenMax.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.15/lodash.min.js"></script>
 		<script src="{% static 'js/preloader.js' %}"></script>
- 		<script src="{% static 'js/script.js' %}"></script>
+		<script src="{% static 'js/script.js' %}"></script>
+		<script src="{% static 'js/app.js' %}"></script>
 	</body>
 
 </html>
