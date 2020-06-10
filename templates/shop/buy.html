@@ -31,7 +31,7 @@
                 <div class="w-100 p-3 ml-0">
                     <a href="{% url 'shop' %}"><i class="fas fa-arrow-left"></i> Regresar</a>
                 </div>
-                <div class="w-100 d-flex align-items-center justify-content-center flex-column">
+                <div class="w-100 d-flex align-items-center justify-content-center flex-column max-image">
                     <h2>{{ product.name }}</h2>
                     {% if product.img_product %}
                     <img src="{{ product.img_product.url}}" alt="">
@@ -122,6 +122,26 @@
 
         var arrayPurchase = [];
         document.getElementById('comp').addEventListener("click", function () {
+            swal({
+                        title: "¿Estás seguro que deseas realizar la compra?",
+                        icon: "warning",
+                        buttons: true,
+                        dangerMode: true,
+                    })
+                    .then((willDelete) => {
+                    if (willDelete) {
+                        swal("Yeep! Tu compra está en camino", {
+                        icon: "success",
+                        });
+                        buyItem();
+                    } else {
+                        swal("Te seguiremos esperando!");
+                    }
+                });
+
+        });
+
+        var buyItem = function(){
             var histPurchase = localStorage.getItem("purchase");
             let user = getUser();
             let product = document.getElementById('id').value;
@@ -131,7 +151,6 @@
                 if (this.readyState == 4 && this.status == 200) {
                     data = JSON.parse(this.responseText)
                     console.log(data);
-                    alert("Listo tu compra está en camino")
                     
                 }
             };
@@ -153,8 +172,7 @@
             // console.log(arrayPurchase);
             // localStorage.setItem('purchase', JSON.stringify(arrayPurchase));
             // Hacer la petición para pagar
-
-        });
+        }
 
         /*
         // Función para obtener el usurio del local storage
@@ -163,9 +181,12 @@
             let res = JSON.parse(localStorage.getItem('user'));
             return res
         }
+
+       
     </script>
 
     <!-- Scripts -->
+    
     <script src="{% static 'js/jquery.min.js' %}"></script>
     <script src="{% static 'js/headroom.min.js' %}"></script>
     <script src="{% static 'js/imagesloaded.min.js' %}"></script>
@@ -174,12 +195,13 @@
     <script defer src="https://use.fontawesome.com/releases/v5.8.1/js/all.js"
         integrity="sha384-g5uSoOSBd7KkhAMlnQILrecXvzst9TdC09/VM+pjDTCM+1il8RHz5fKANTFFb+gQ"
         crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="{% static 'js/modernizr.custom.js' %}"></script>
     <script src="{% static 'js/classie.js' %}"></script>
-    <script src="{% static 'js/pathLoader.js' %}"></script>
+    <!-- <script src="{% static 'js/pathLoader.js' %}"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TweenMax.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.15/lodash.min.js"></script>
-    <script src="{% static 'js/preloader.js' %}"></script>
+    <!-- <script src="{% static 'js/preloader.js' %}"></script> -->
     <script src="{% static 'js/script.js' %}"></script>
 </body>
 
