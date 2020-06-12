@@ -66,7 +66,7 @@
                     if(data.pk){
                         window.location.replace("{% url 'shop' %}")
                     }else{
-                        alert("Revisa tus credenciales")
+                        swal("Upss!", "Revisa tus credenciales!", "error");
                     }
                 }
             };
@@ -76,6 +76,7 @@
         }
 
     </script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </body>
 
 </html>

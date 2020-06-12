@@ -1,7 +1,7 @@
 <nav>
     <ul class="nav-primary">
         <li>
-            <a href="{% url 'index' %}">Nosotros</a>
+            <a href="{% url 'index' %}">Inicio</a>
         </li>
         <li>
             <a href="{% url 'services' %}">Servicios</a>
@@ -35,7 +35,11 @@
     }
     function log_out(){
         localStorage.clear()
+        swal("Te extrañaremos!", " ", "success");
         li_log_in.style.display = "block";
         li_log_out.style.display = "none";
+        window.setTimeout(function(){
+        window.location.replace("{% url 'shop' %}");
+        }, 2000);
     }
 </script>

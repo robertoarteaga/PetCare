@@ -1,27 +1,32 @@
 {% extends 'shop/base_shop.html' %}
-
+{% load static %}
+{% block all_products %}
+    <div class="col-12 mb-5">
+        <h5 class="btn footer-ligth__blue font-weight-bold text-white">Todos los servicios</h5>
+    </div>
+{% endblock %}
 {% block content %}
-<div class="row d-flex flex-wrap justify-content-around">
+<div class="row d-flex flex-wrap justify-content-around align-items-start">
     <!-- PRODUCTS -->
     {% for service in services %}
-    <div class="card col-sm-12 col-md-5 mb-5" style="width: 18rem;">
-        <div class="card-header">
-            <span>{{ service.name }}</span>
-        </div>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">
-              <p>{{ service.description }}</p>
-              <br>
-              <span><b>Precio:</b>${{ service.price }}</span>
-                
-                <a href="{% url 'contract_service' service.id %}" class="btn btn-primary align-self-end mt-1">
-                    <i class="fas fa-shopping-cart mr-1"></i>Contratar
-                </a>
-            </li>
-            
-        </ul>
-      </div>
-    
-    {% endfor %}
+                    <div class="col-12 col-xs-12 col-sm-6 col-lg-4 d-flex flex-column align-items-center justify-content-center mb-5">
+                        <div class="container-card">
+                            <div class="head-card">
+                                <img src="{% static 'img/products/service.png' %}" alt="">
+                            </div>
+                            <div class="body-card"> 
+                                <span>{{ service.name }}</span>
+                                <p>{{ service.description }}</p>
+                                <p class="text-primary text-bold">${{ service.price }} MXN</p>
+                                <p>
+                                    <a href="{% url 'contract_service' service.id %}">
+                                        <button class="btn btn-primary"><i class="fas fa-shopping-cart mr-1"></i>Comprar</button>
+                                    </a>
+                                </p>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
 </div>
 {% endblock %}

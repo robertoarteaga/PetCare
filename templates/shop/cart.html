@@ -1,56 +1,90 @@
 {% extends 'shop/base_shop.html' %}
 
 {% block content %}
-
-<div>
-    <h3>Servicios solicitados</h3>
-    <br>
-    <div id="servicios" class="row">
-
-    </div>
-</div>
-<div>
-    <h3>Tus compras</h3>
-    <br>
-    <div id="compras" class="row">
-
-    </div>
-</div>
-<script>
-    var getUser = function () {
-        let res = JSON.parse(localStorage.getItem('user'));
-        return res
+<style>
+    .card{
+        margin-right: 1rem;
+        margin-top: 1rem;
     }
+    .container-h{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-flow: column;
+    }
+    .container-h2{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-flow: wrap;
+    }
+    .container-h h3{
+        font-weight: 500;
+    }
+    .row .container-h2 .card{
+        padding: 1rem;
+        box-shadow: 10px 11px 15px -11px rgba(0, 0, 0, 0.25);
+    }
+    .row .container-h2 .card span{
+        color: #080e7c;
+    }
+    del{
+        font-weight: bold;
+        color: #00c3f2;
+        text-decoration: none;
+    }
+</style>
+<div class="p-5 container-h">
+    <div class="container-h">
+        <h2>Servicios solicitados</h2>
+        <br>
+        <div id="servicios" class="row container-h2">
 
-    window.onload = () => {
-        let user = getUser();
-        if (user.id) {
+        </div>
+    </div>
+    <div class="container-h mt-5">
+        <h2>Tus compras</h2>
+        <br>
+        <div id="compras" class="row container-h2">
 
-
-            var xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function () {
-                if (this.readyState == 4 && this.status == 200) {
-                    data = JSON.parse(this.responseText)
-                    console.log(data);
-                    compras = document.getElementById("compras");
-                    compras.innerHTML = "";
-                    data.products.forEach(product => {
-                        compras.innerHTML += `<div class='col-sm-12 card mb-2 ${product.status}'><p>Compraste ${product.name} <br>Fecha: ${Date(product.date_created)},<br> estatus:<b> ${product.status}</b></p></div>`
-                    });
-
-                    servicios = document.getElementById("servicios");
-                    servicios.innerHTML = "";
-                    data.services.forEach(product => {
-                        servicios.innerHTML += `<div class='col-sm-12 card mb-2 ${product.status}'><p>Solicitaste <b>${product.name}</b><br> Fecha: ${Date(product.date_created)},<br> estatus:<b> ${product.status}</b></p></div>`
-                    });
-
-                }
-            };
-            xhttp.open("POST", "{% url 'get_customer_cart' %}", true);
-            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xhttp.send(`user_id=${user.id}`)
+        </div>
+    </div>
+    <script>
+        var getUser = function () {
+            let res = JSON.parse(localStorage.getItem('user'));
+            return res
         }
 
-    }
-</script>
+        window.onload = () => {
+            let user = getUser();
+            if (user.id) {
+
+
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        data = JSON.parse(this.responseText)
+                        console.log(data);
+                        compras = document.getElementById("compras");
+                        compras.innerHTML = "";
+                        data.products.forEach(product => {
+                            compras.innerHTML += `<div class='col-sm-4 card mb-2 text-center ${product.status}'><p><del> ${product.name}</del> <br><b>Fecha:</b> ${Date(product.date_created)},<br> <b>Estado:</b><span> ${product.status}</span></p></div>`
+                        });
+
+                        servicios = document.getElementById("servicios");
+                        servicios.innerHTML = "";
+                        data.services.forEach(product => {
+                            servicios.innerHTML += `<div class='col-sm-4 card mb-2 text-center ${product.status}'><p><del>${product.name}</del><br> <b>Fecha:</b> ${Date(product.date_created)},<br> <b>Estado:</b> <span> ${product.status}</span></p></div>`
+                        });
+
+                    }
+                };
+                xhttp.open("POST", "{% url 'get_customer_cart' %}", true);
+                xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xhttp.send(`user_id=${user.id}`)
+            }
+
+        }
+    </script>
+</div>
 {% endblock %}

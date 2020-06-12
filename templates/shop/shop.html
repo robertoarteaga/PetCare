@@ -1,5 +1,11 @@
 {% extends 'shop/base_shop.html' %}
 
+{% block all_products %}
+    <div class="col-12 mb-5">
+        <h5 class="btn footer-ligth__blue font-weight-bold text-white">Todos los productos</h5>
+    </div>
+{% endblock %}
+
 {% block content %}
     {% for product in products %}
     <div class="col-12 col-xs-12 col-sm-6 col-lg-4 d-flex flex-column align-items-center justify-content-center mb-5">

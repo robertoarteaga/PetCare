@@ -130,9 +130,7 @@
                     })
                     .then((willDelete) => {
                     if (willDelete) {
-                        swal("Yeep! Tu compra está en camino", {
-                        icon: "success",
-                        });
+                        swal("¡Tu compra está en camino!", " ", "success");
                         
                         var histPurchase = localStorage.getItem("purchase");
                         let user = getUser();
