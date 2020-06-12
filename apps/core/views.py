@@ -266,13 +266,19 @@ class UpdateCustomer(UpdateView):
     template_name_suffix = '_update_form'
     success_url = None
 
-from openpyxl.styles import Font, Alignment
+from openpyxl.styles import Font, Alignment, Border, Side, NamedStyle, Fill, PatternFill
 
 class SalesReport(TemplateView):
+    FORMAT_CURRENCY = "_($* #,##0.00_);_($* (#,##0.00);_($* ""-""??_);_(@_)"
     font_title = Font(size = 14, name = 'Poppins', color="666666")
     font_subtitle = Font(size = 11, name = 'Roboto', color="666666")
     v_alignment_center = Alignment(vertical="center")
     alignment_center = Alignment(horizontal="center", vertical="center")
+    t_border = Border(top=Side(style='thin', color='DEE2E6'))
+    base_fill = PatternFill("solid", fgColor="F9F9F9")
+    header_style = NamedStyle(name="header_style", font=font_subtitle, border = t_border, alignment = v_alignment_center)
+    data_style = NamedStyle(name="data_style", border = t_border, alignment = v_alignment_center, fill=base_fill)
+    data_style_no_bg = NamedStyle(name="data_style_no_bg", border = t_border, alignment = v_alignment_center)
     def get(self, request, *args, **kwargs):
         a_date = datetime.datetime.today()
         week_number = a_date.isocalendar()[1]
@@ -366,91 +372,216 @@ class SalesReport(TemplateView):
         ws.merge_cells('F4:H4')
 
         ws['B6'] = 'CIERRE SEMANAL'
-        ws['B6'].font = self.font_subtitle
-        ws['B6'].alignment = self.v_alignment_center
+        ws['B6'].style = self.header_style
         ws['C6'] = 'CIERRE MENSUAL'
-        ws['C6'].font = self.font_subtitle
-        ws['C6'].alignment = self.v_alignment_center
+        ws['C6'].style = self.header_style
         ws['D6'] = 'CIERRE DEL AÑO'
-        ws['D6'].font = self.font_subtitle
-        ws['D6'].alignment = self.v_alignment_center
+        ws['D6'].style = self.header_style
 
         ws['B7'] = week_close['week_close']
+        ws['B7'].style = self.data_style
+        ws['B7'].number_format = self.FORMAT_CURRENCY
         ws['C7'] = month_close['month_close']
+        ws['C7'].style = self.data_style
+        ws['C7'].number_format = self.FORMAT_CURRENCY
         ws['D7'] = year_close['year_close']
+        ws['D7'].style = self.data_style
+        ws['D7'].number_format = self.FORMAT_CURRENCY
 
         ws['F6'] = 'CIERRE SEMANAL'
-        ws['F6'].font = self.font_subtitle
-        ws['F6'].alignment = self.v_alignment_center
+        ws['F6'].style = self.header_style
         ws['G6'] = 'CIERRE MENSUAL'
-        ws['G6'].font = self.font_subtitle
-        ws['G6'].alignment = self.v_alignment_center
+        ws['G6'].style = self.header_style
         ws['H6'] = 'CIERRE DEL AÑO'
-        ws['H6'].font = self.font_subtitle
-        ws['H6'].alignment = self.v_alignment_center
+        ws['H6'].style = self.header_style
 
         ws['F7'] = s_week_close['week_close']
+        ws['F7'].style = self.data_style
+        ws['F7'].number_format = self.FORMAT_CURRENCY
         ws['G7'] = s_month_close['month_close']
+        ws['G7'].style = self.data_style
+        ws['G7'].number_format = self.FORMAT_CURRENCY
         ws['H7'] = s_year_close['year_close']
+        ws['H7'].style = self.data_style
+        ws['H7'].number_format = self.FORMAT_CURRENCY
 
         # month close for porducts
         ws['B9'] = 'MES'
-        ws['B9'].font = self.font_subtitle
-        ws['B9'].alignment = self.v_alignment_center
+        ws['B9'].style = self.header_style
         ws['C9'] = 'CIERRE'
-        ws['C9'].font = self.font_subtitle
-        ws['C9'].alignment = self.v_alignment_center
+        ws['C9'].style = self.header_style
+        ws['D10'] = 'INCREMENTO'
+        ws['D10'].style = self.header_style
         ws['B10'] = 'Enero'
+        ws['B10'].style = self.data_style
         ws['C10'] = p_january_close['year_close']
+        ws['C10'].style = self.data_style
+        ws['C10'].number_format = self.FORMAT_CURRENCY
         ws['B11'] = 'Febrero'
+        ws['B11'].style = self.data_style_no_bg
         ws['C11'] = p_february_close['year_close']
+        ws['C11'].style = self.data_style_no_bg
+        ws['C11'].number_format = self.FORMAT_CURRENCY
+        ws['D11'] = '=((C11*100/C10)-100)/100'
+        ws['D11'].style = self.data_style_no_bg
+        ws['D11'].number_format = '0.00%'
         ws['B12'] = 'Marzo'
+        ws['B12'].style = self.data_style
         ws['C12'] = p_march_close['year_close']
+        ws['C12'].style = self.data_style
+        ws['C12'].number_format = self.FORMAT_CURRENCY
+        ws['D12'] = '=((C12*100/C11)-100)/100'
+        ws['D12'].style = self.data_style
+        ws['D12'].number_format = '0.00%'
         ws['B13'] = 'Abril'
+        ws['B13'].style = self.data_style_no_bg
         ws['C13'] = p_april_close['year_close']
+        ws['C13'].style = self.data_style_no_bg
+        ws['C13'].number_format = self.FORMAT_CURRENCY
+        ws['D13'] = '=((C13*100/C12)-100)/100'
+        ws['D13'].style = self.data_style_no_bg
+        ws['D13'].number_format = '0.00%'
         ws['B14'] = 'Mayo'
+        ws['B14'].style = self.data_style
         ws['C14'] = p_may_close['year_close']
+        ws['C14'].style = self.data_style
+        ws['C14'].number_format = self.FORMAT_CURRENCY
+        ws['D14'] = '=((C14*100/C13)-100)/100'
+        ws['D14'].style = self.data_style
+        ws['D14'].number_format = '0.00%'
         ws['B15'] = 'Junio'
+        ws['B15'].style = self.data_style_no_bg
         ws['C15'] = p_june_close['year_close']
-
+        ws['C15'].style = self.data_style_no_bg
+        ws['C15'].number_format = self.FORMAT_CURRENCY
+        ws['D15']='=((C15*100/C14)-100)/100'
+        ws['D15'].style = self.data_style_no_bg
+        ws['D15'].number_format = '0.00%'
+        # TOTAL
+        ws['B16'] = 'Total:'
+        ws['B16'].style = self.data_style
+        ws['C16'] = year_close['year_close']
+        ws['C16'].style = self.data_style
+        ws['C16'].number_format = self.FORMAT_CURRENCY
         # month close for services
         ws['F9'] = 'MES'
-        ws['F9'].font = self.font_subtitle
-        ws['F9'].alignment = self.v_alignment_center
+        ws['F9'].style = self.header_style
         ws['G9'] = 'CIERRE'
-        ws['G9'].font = self.font_subtitle
-        ws['G9'].alignment = self.v_alignment_center
+        ws['G9'].style = self.header_style
+        ws['H10'] = 'INCREMENTO'
+        ws['H10'].style = self.header_style
         ws['F10'] = 'Enero'
+        ws['F10'].style = self.data_style
         ws['G10'] = january_close['year_close']
+        ws['G10'].style = self.data_style
+        ws['G10'].number_format = self.FORMAT_CURRENCY
         ws['F11'] = 'Febrero'
+        ws['F11'].style = self.data_style_no_bg
         ws['G11'] = february_close['year_close']
+        ws['G11'].style = self.data_style_no_bg
+        ws['G11'].number_format = self.FORMAT_CURRENCY
+
+        ws['H11']='=((G11*100/G10)-100)/100'
+        ws['H11'].style = self.data_style_no_bg
+        ws['H11'].number_format = '0.00%'
+
         ws['F12'] = 'Marzo'
+        ws['F12'].style = self.data_style
         ws['G12'] = march_close['year_close']
+        ws['G12'].style = self.data_style
+        ws['G12'].number_format = self.FORMAT_CURRENCY
+
+        ws['H12']='=((G12*100/G11)-100)/100'
+        ws['H12'].style = self.data_style
+        ws['H12'].number_format = '0.00%'
+
         ws['F13'] = 'Abril'
+        ws['F13'].style = self.data_style_no_bg
         ws['G13'] = april_close['year_close']
+        ws['G13'].style = self.data_style_no_bg
+        ws['G13'].number_format = self.FORMAT_CURRENCY
+
+        ws['H13']='=((G13*100/G12)-100)/100'
+        ws['H13'].style = self.data_style_no_bg
+        ws['H13'].number_format = '0.00%'
+
         ws['F14'] = 'Mayo'
+        ws['F14'].style = self.data_style
         ws['G14'] = may_close['year_close']
+        ws['G14'].style = self.data_style
+        ws['G14'].number_format = self.FORMAT_CURRENCY
+
+        ws['H14']='=((G14*100/G13)-100)/100'
+        ws['H14'].style = self.data_style
+        ws['H14'].number_format = '0.00%'
+
         ws['F15'] = 'Junio'
+        ws['F15'].style = self.data_style_no_bg
         ws['G15'] = june_close['year_close']
+        ws['G15'].style = self.data_style_no_bg
+        ws['G15'].number_format = self.FORMAT_CURRENCY
+
+        ws['H15']='=((G15*100/G14)-100)/100'
+        ws['H15'].style = self.data_style
+        ws['H15'].number_format = '0.00%'
+
+        # TOTAL
+        ws['F16'] = 'Total:'
+        ws['F16'].style = self.data_style
+        ws['G16'] = s_year_close['year_close']
+        ws['G16'].style = self.data_style
+        ws['G16'].number_format = self.FORMAT_CURRENCY
 
         ws['B19'] = 'CONSULTA DE PRODUCTOS MÁS DEMANDADOS'
         ws['B19'].font = self.font_title
         ws['B19'].alignment = self.alignment_center
         ws.merge_cells(start_row=19, start_column=2, end_row=19, end_column=7)
         ws['B20'] = 'Producto'
+        ws['B20'].style = self.header_style
         ws['C20'] = 'Descripción'
+        ws['C20'].style = self.header_style
         ws['D20'] = 'Categoría'
+        ws['D20'].style = self.header_style
         ws['E20'] = 'Precio'
+        ws['E20'].style = self.header_style
         ws['F20'] = 'Total ventas'
+        ws['F20'].style = self.header_style
         ws['G20'] = 'Total MXN'
+        ws['G20'].style = self.header_style
         count = 21
+        flag = True
         for sell in best_selling:
-            ws.cell(row=count, column=2).value = sell.name
-            ws.cell(row=count, column=3).value = sell.description
-            ws.cell(row=count, column=4).value = sell.category
-            ws.cell(row=count, column=5).value = sell.price
-            ws.cell(row=count, column=6).value = sell.total_orders
-            ws.cell(row=count, column=7).value = sell.total_mxn
+            if flag:
+                ws.cell(row=count, column=2).value = sell.name
+                ws.cell(row=count, column=2).style = self.data_style
+                ws.cell(row=count, column=3).value = sell.description
+                ws.cell(row=count, column=3).style = self.data_style
+                ws.cell(row=count, column=4).value = sell.category
+                ws.cell(row=count, column=4).style = self.data_style
+                ws.cell(row=count, column=5).value = sell.price
+                ws.cell(row=count, column=5).style = self.data_style
+                ws.cell(row=count, column=5).number_format = self.FORMAT_CURRENCY
+                ws.cell(row=count, column=6).value = sell.total_orders
+                ws.cell(row=count, column=6).style = self.data_style
+                ws.cell(row=count, column=7).value = sell.total_mxn
+                ws.cell(row=count, column=7).style = self.data_style
+                ws.cell(row=count, column=7).number_format = self.FORMAT_CURRENCY
+            else:
+                ws.cell(row=count, column=2).value = sell.name
+                ws.cell(row=count, column=2).style = self.data_style_no_bg
+                ws.cell(row=count, column=3).value = sell.description
+                ws.cell(row=count, column=3).style = self.data_style_no_bg
+                ws.cell(row=count, column=4).value = sell.category
+                ws.cell(row=count, column=4).style = self.data_style_no_bg
+                ws.cell(row=count, column=5).value = sell.price
+                ws.cell(row=count, column=5).style = self.data_style_no_bg
+                ws.cell(row=count, column=5).number_format = self.FORMAT_CURRENCY
+                ws.cell(row=count, column=6).value = sell.total_orders
+                ws.cell(row=count, column=6).style = self.data_style_no_bg
+                ws.cell(row=count, column=7).value = sell.total_mxn
+                ws.cell(row=count, column=7).style = self.data_style_no_bg
+                ws.cell(row=count, column=7).number_format = self.FORMAT_CURRENCY
+            flag = not(flag)
             count += 1
 
         count += 1
@@ -461,19 +592,51 @@ class SalesReport(TemplateView):
                        end_row=count, end_column=7)
         count += 1
         ws.cell(row=count, column=2).value = 'Producto'
+        ws.cell(row=count, column=2).style = self.header_style
         ws.cell(row=count, column=3).value = 'Descripción'
+        ws.cell(row=count, column=3).style = self.header_style
         ws.cell(row=count, column=4).value = 'Categoría'
+        ws.cell(row=count, column=4).style = self.header_style
         ws.cell(row=count, column=5).value = 'Precio'
+        ws.cell(row=count, column=5).style = self.header_style
         ws.cell(row=count, column=6).value = 'Total ventas'
+        ws.cell(row=count, column=6).style = self.header_style
         ws.cell(row=count, column=7).value = 'Total MXN'
+        ws.cell(row=count, column=7).style = self.header_style
         count += 1
+        flag = True
         for sell in worst_selling:
-            ws.cell(row=count, column=2).value = sell.name
-            ws.cell(row=count, column=3).value = sell.description
-            ws.cell(row=count, column=4).value = sell.category
-            ws.cell(row=count, column=5).value = sell.price
-            ws.cell(row=count, column=6).value = sell.total_orders
-            ws.cell(row=count, column=7).value = sell.total_mxn
+            if flag:
+                ws.cell(row=count, column=2).value = sell.name
+                ws.cell(row=count, column=2).style = self.data_style
+                ws.cell(row=count, column=3).value = sell.description
+                ws.cell(row=count, column=3).style = self.data_style
+                ws.cell(row=count, column=4).value = sell.category
+                ws.cell(row=count, column=4).style = self.data_style
+                ws.cell(row=count, column=5).value = sell.price
+                ws.cell(row=count, column=5).style = self.data_style
+                ws.cell(row=count, column=5).number_format = self.FORMAT_CURRENCY
+                ws.cell(row=count, column=6).value = sell.total_orders
+                ws.cell(row=count, column=6).style = self.data_style
+                ws.cell(row=count, column=7).value = sell.total_mxn
+                ws.cell(row=count, column=7).style = self.data_style
+                ws.cell(row=count, column=7).number_format = self.FORMAT_CURRENCY
+            else:
+                ws.cell(row=count, column=2).value = sell.name
+                ws.cell(row=count, column=2).style = self.data_style_no_bg
+                ws.cell(row=count, column=3).value = sell.description
+                ws.cell(row=count, column=3).style = self.data_style_no_bg
+                ws.cell(row=count, column=4).value = sell.category
+                ws.cell(row=count, column=4).style = self.data_style_no_bg
+                ws.cell(row=count, column=5).value = sell.price
+                ws.cell(row=count, column=5).style = self.data_style_no_bg
+                ws.cell(row=count, column=5).number_format = self.FORMAT_CURRENCY
+                ws.cell(row=count, column=6).value = sell.total_orders
+                ws.cell(row=count, column=6).style = self.data_style_no_bg
+                ws.cell(row=count, column=7).value = sell.total_mxn
+                ws.cell(row=count, column=7).style = self.data_style_no_bg
+                ws.cell(row=count, column=7).number_format = self.FORMAT_CURRENCY
+            flag = not(flag)
             count += 1
 
         count += 1
@@ -484,17 +647,45 @@ class SalesReport(TemplateView):
                        end_row=count, end_column=7)
         count += 1
         ws.cell(row=count, column=2).value = 'Producto'
+        ws.cell(row=count, column=2).style = self.header_style
         ws.cell(row=count, column=3).value = 'Categoría'
+        ws.cell(row=count, column=3).style = self.header_style
         ws.cell(row=count, column=4).value = 'Precio'
+        ws.cell(row=count, column=4).style = self.header_style
         ws.cell(row=count, column=5).value = 'Total ventas'
+        ws.cell(row=count, column=5).style = self.header_style
         ws.cell(row=count, column=6).value = 'Total MXN'
+        ws.cell(row=count, column=6).style = self.header_style
         count += 1
+        flag = True
         for sell in services_sales:
-            ws.cell(row=count, column=2).value = sell.name
-            ws.cell(row=count, column=3).value = sell.category
-            ws.cell(row=count, column=4).value = sell.price
-            ws.cell(row=count, column=5).value = sell.total_orders
-            ws.cell(row=count, column=6).value = sell.total_mxn
+            if flag:
+                ws.cell(row=count, column=2).value = sell.name
+                ws.cell(row=count, column=2).style = self.data_style
+                ws.cell(row=count, column=3).value = sell.category
+                ws.cell(row=count, column=3).style = self.data_style
+                ws.cell(row=count, column=4).value = sell.price
+                ws.cell(row=count, column=4).style = self.data_style
+                ws.cell(row=count, column=4).number_format = self.FORMAT_CURRENCY
+                ws.cell(row=count, column=5).value = sell.total_orders
+                ws.cell(row=count, column=5).style = self.data_style
+                ws.cell(row=count, column=6).value = sell.total_mxn
+                ws.cell(row=count, column=6).style = self.data_style
+                ws.cell(row=count, column=6).number_format = self.FORMAT_CURRENCY
+            else:
+                ws.cell(row=count, column=2).value = sell.name
+                ws.cell(row=count, column=2).style = self.data_style_no_bg
+                ws.cell(row=count, column=3).value = sell.category
+                ws.cell(row=count, column=3).style = self.data_style_no_bg
+                ws.cell(row=count, column=4).value = sell.price
+                ws.cell(row=count, column=4).style = self.data_style_no_bg
+                ws.cell(row=count, column=4).number_format = self.FORMAT_CURRENCY
+                ws.cell(row=count, column=5).value = sell.total_orders
+                ws.cell(row=count, column=5).style = self.data_style_no_bg
+                ws.cell(row=count, column=6).value = sell.total_mxn
+                ws.cell(row=count, column=6).style = self.data_style_no_bg
+                ws.cell(row=count, column=6).number_format = self.FORMAT_CURRENCY
+            flag = not(flag)
             count += 1
         
         
