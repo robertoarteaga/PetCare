@@ -22,7 +22,7 @@
 		
 	</head>
 	<!-- Preloader -->
-		<!-- <div id="ip-container" class="ip-container">
+		<div id="ip-container" class="ip-container">
 			<header class="ip-header">
 				<div id="loaderimg" class="loader">
 					<div class="image">
@@ -41,7 +41,7 @@
 					</svg>
 				</div>
 			</header>
-		</div> -->
+		</div>
 
 		
 	<body class="footer-dark">
@@ -238,7 +238,7 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.0/anime.min.js"></script>
 
-					<a class="slide" data-title="VETERINARIO" href="#">
+					<a class="slide" data-title="VETERINARIO" href="{% url 'shop' %}">
 						<div class="container">
 							<header class="content-header content-header-large content-header-uppercase" >
                 <img src="{% static 'img/logos/Cat2.png' %}" alt="" style="height: 140px;">
@@ -250,7 +250,7 @@
 						</div>
 					</a>
 					
-					<a class="slide" data-title="ALIMENTOS" href="#">
+					<a class="slide" data-title="ALIMENTOS" href="{% url 'shop' %}">
 						<div class="container">
 							<header class="content-header content-header-large content-header-uppercase">
                 <img src="{% static 'img/logos/Dog1.png' %}" alt="" style="height: 140px;">
@@ -262,7 +262,7 @@
 						</div>
           </a>
           
-          <a class="slide" data-title="ACCESORIOS" href="#">
+          <a class="slide" data-title="ACCESORIOS" href="{% url 'shop' %}">
 						<div class="container">
 							<header class="content-header content-header-large content-header-uppercase">
                 <img src="{% static 'img/logos/Cat3.png' %}" alt="" style="height: 140px;">
@@ -353,8 +353,8 @@
 							¿Quieres suscribirte a nuestro newsletter?
 						</h2>
 						<p>
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Expedita fugiat, enim explicabo tenetur sed corrupti nobis voluptatibus incidunt maxime repellat sunt in culpa quam? Possimus dolor ad repudiandae perferendis officia.
-			  <br><br>
+							¡Entérate sobre nuestros nuevos productos y servicios a través de tu correo electrónico!
+							<br><br>
 							<input type="text" name="" id="" placeholder="Correo electrónico">
 							<a class="button button-secondary" href="">Suscribirme</a>
 						</p>
@@ -367,13 +367,10 @@
       <div class="container">
         <header class="content-header">
           <h2>¿Ya nos conoces?</h2>
-        </header>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni perferendis, aliquam aperiam illo fugiat pariatur tenetur magnam aut odio nostrum obcaecati! Obcaecati repellat accusantium, alias mollitia commodi asperiores maiores ipsam. 
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quam quisquam expedita optio iusto. A expedita quidem non maxime error ullam ea, accusantium, sunt vero mollitia, minus atque molestiae eos eius.
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda cumque necessitatibus laborum quibusdam expedita atque ullam. Expedita corrupti asperiores dolore aliquid nobis amet ipsam omnis sequi ducimus doloremque, aliquam hic!
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque exercitationem nulla architecto repudiandae ipsa dolores, incidunt aliquid reiciendis consequuntur quis. Ut dolores facilis praesentium labore! Consequuntur doloribus nisi nemo? Vitae!
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste tenetur itaque quasi perferendis unde aliquid, modi recusandae. Odio eaque tenetur quos non illo perspiciatis dolores, quas velit! Est, amet voluptates.
-        </p>
+		</header>
+		<p>Pet-Care, es una veterinaria, que ofrece servicio de estética a domicilio, venta de alimentos, accesorios para mascotas, tratamientos preventivos, vacunas, etc, así mismo se ofrece a los usuarios la posibilidad de que sus mascotas sean recogidas para que nuestra veterinaria las pueda atender.
+		Buscamos crear un ambiente con nuestros clientes en el cual puedan contratar o recibir sus servicios de veterinaria y estética utilizando un intermediario digital, en este caso nuestra plataforma.</p>
+		<p>Nuestra idea busca hacer que los clientes de nuestra veterinaria estén satisfechos simplemente con un solo clic, al automatizar y facilitar todo con nuestra plataforma la cual les hará más sencillo y cómodo el cuidado de sus mascotas.</p>
       </div>
     </section>
 
@@ -383,46 +380,14 @@
 				<div class="container">
 					<div class="column-row">
 						<div class="column-33">
-			  FRAME
+			  MAPA
 			  <iframe class="column large-6 small-12 map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3732.148810024693!2d-100.44419034867862!3d20.70418096559715!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d35acbde2fa8cd%3A0x185f39ac76881a6c!2sFacultad%20de%20Inform%C3%A1tica%20UAQ!5e0!3m2!1ses!2smx!4v1578601535245!5m2!1ses!2smx" width="300" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
             </div>
 						<div class="column-66">
 							<div class="column-row align-right-top">
 								<div class="column-25">
 									<h5>
-										Connect
-									</h5>
-									<ul class="list-style-icon">
-										<li>
-											<a href="#"><i class="fab fa-facebook"></i>Facebook</a>
-										</li>
-										<li>
-											<a href="#"><i class="fab fa-twitter"></i>Twitter</a>
-										</li>
-										<li>
-											<a href="#"><i class="fab fa-github"></i>Github</a>
-										</li>
-									</ul>
-								</div>
-								<div class="column-25">
-									<h5>
-										Connect
-									</h5>
-									<ul class="list-style-icon">
-										<li>
-											<a href="#"><i class="fab fa-facebook"></i>Facebook</a>
-										</li>
-										<li>
-											<a href="#"><i class="fab fa-twitter"></i>Twitter</a>
-										</li>
-										<li>
-											<a href="#"><i class="fab fa-github"></i>Github</a>
-										</li>
-									</ul>
-								</div>
-								<div class="column-25">
-									<h5>
-										Connect
+										Contáctanos
 									</h5>
 									<ul class="list-style-icon">
 										<li>
